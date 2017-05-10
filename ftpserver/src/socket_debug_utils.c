@@ -5,9 +5,10 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 11:27:41 2017 bongol_b
-** Last update Wed May 10 11:33:55 2017 bongol_b
+** Last update Wed May 10 22:01:22 2017 bongol_b
 */
 
+#include <arpa/inet.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include "debug.h"

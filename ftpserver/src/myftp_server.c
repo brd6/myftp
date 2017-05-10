@@ -5,9 +5,11 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 08:25:08 2017 bongol_b
-** Last update Wed May 10 11:39:09 2017 bongol_b
+** Last update Wed May 10 22:00:58 2017 bongol_b
 */
 
+#include <stdio.h>
+#include <arpa/inet.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include "myftp_server.h"
@@ -22,7 +24,7 @@ static int		wait_client_sock_connection(t_config const *config,
   *client_sock_fd = accept(config->sock_fd,
 			  (struct sockaddr *)addr,
 			  sock_len);
-  if (client_sock_fd == -1)
+  if (*client_sock_fd == -1)
     return (dprintf(2, ERR_SOCKET_ACCEPT), 0);
   return (1);
 }

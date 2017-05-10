@@ -5,11 +5,13 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 09:54:12 2017 bongol_b
-** Last update Wed May 10 10:46:20 2017 bongol_b
+** Last update Wed May 10 22:02:06 2017 bongol_b
 */
 
 #ifndef DEBUG_H_
 # define DEBUG_H_
+
+# include <stdio.h>
 
 # define COLOR_RED	"\x1b[31m"
 # define COLOR_GREEN	"\x1b[32m"

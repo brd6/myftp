@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 08:24:59 2017 bongol_b
-** Last update Wed May 10 11:33:12 2017 bongol_b
+** Last update Wed May 10 21:56:09 2017 bongol_b
 */
 
 #ifndef ERRORS_H_
@@ -21,5 +21,6 @@ on port: %d\n"
 # define ERR_INIT_SOCKET_BIND	"Error: Unable to bind the socket\n"
 # define ERR_INIT_SOCKET_LISTEN	"Error: Unable to listen the socket\n"
 # define ERR_SOCKET_ACCEPT	"Error: Unable to accept client on the socket\n"
+# define ERR_CREATE_USER	"Error: Unable to create an user\n"
 
 #endif /* !ERRORS_H_ */
