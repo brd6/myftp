@@ -5,22 +5,47 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:35:16 2017 Berdrigue Bongolo-Beto
-** Last update Wed May 10 10:40:12 2017 bongol_b
+** Last update Wed May 10 11:07:48 2017 bongol_b
 */
 
+#include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
 #include "errors.h"
 #include "myftp_server.h"
 
+static int	create_user(t_user *user,
+			    char const *name,
+			    char const *passwd,
+			    char const *path)
+{
+  if ((user->name = strdup(name)) == NULL)
+    return (0);
+  if (passwd)
+    {
+      if ((user->password = strdup(passwd)) == NULL)
+	return (0);
+    }
+  else
+    user->password = NULL;
+  if ((user->home_dir = strdup(path)) == NULL)
+    return (0);
+  return (1);
+}
+
 static int	run(char *default_user_path, int port)
 {
-  int		server_sock_fd;
+  t_config	config;
+  t_user	anonymous_user;
 
-  if (server_create(&server_sock_fd, port) == 0)
-    return (dprintf(2, ERR_SERVER_CREATE, port), 0);
-  close(server_sock_fd);
+  config.port = port;
+  if (server_create(&(config.sock_fd), config.port) == 0)
+    return (dprintf(2, ERR_SERVER_CREATE, config.port), 0);
+  if (create_user(&anonymous_user, "anonymous", NULL, default_user_path) == 0)
+    return (dprintf(2, ERR_CREATE_USER), 0);
+  server_run(&config, &anonymous_user);
+  close(config.sock_fd);
   (void)default_user_path;
   return (1);
 }

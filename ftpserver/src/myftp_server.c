@@ -5,55 +5,49 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 08:25:08 2017 bongol_b
-** Last update Wed May 10 10:39:33 2017 bongol_b
+** Last update Wed May 10 11:39:09 2017 bongol_b
 */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <arpa/inet.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include "myftp_server.h"
 #include "errors.h"
 #include "debug.h"
 
-static void		init_sock_address(struct sockaddr_in *sock_address,
-					  int port)
+static int		wait_client_sock_connection(t_config const *config,
+						    int *client_sock_fd,
+						    struct sockaddr_in *addr,
+						    socklen_t *sock_len)
 {
-  memset(sock_address, 0, sizeof(*sock_address));
-  sock_address->sin_family = AF_INET;
-  sock_address->sin_port = htons(port);
-  sock_address->sin_addr.s_addr = htonl(INADDR_ANY);
-  PRINT_DEBUG("init_sock_address");
-}
-
-static int		init_socket(int *sock_fd,
-				    struct sockaddr_in *sock_address)
-{
-  int			ret;
-
-  if ((*sock_fd = socket(sock_address->sin_family, SOCK_STREAM, 0)) == -1)
-    return (dprintf(2, ERR_INIT_SOCKET), 0);
-  ret = bind(*sock_fd, (struct sockaddr *)sock_address, sizeof(*sock_address));
-  if (ret == -1)
-    {
-      close(*sock_fd);
-      return (dprintf(2, ERR_INIT_SOCKET_BIND), 0);
-    }
-  if (listen(*sock_fd, SERVER_LISTEN_BACKLOG) == -1)
-    {
-      close(*sock_fd);
-      return (dprintf(2, ERR_INIT_SOCKET_LISTEN), 0);
-    }
-  PRINT_DEBUG("init_socket, sock_fd = %d", *sock_fd);
+  *client_sock_fd = accept(config->sock_fd,
+			  (struct sockaddr *)addr,
+			  sock_len);
+  if (client_sock_fd == -1)
+    return (dprintf(2, ERR_SOCKET_ACCEPT), 0);
   return (1);
 }
 
-int			server_create(int *sock_fd, int port)
+static int		handle_new_client(t_config const *config)
 {
-  struct sockaddr_in	sock_address;
+  return (1);
+}
 
-  init_sock_address(&sock_address, port);
-  return (init_socket(sock_fd, &sock_address));
+int			server_run(t_config const *config, t_user const *user)
+{
+  int			client_sock_fd;
+  struct sockaddr_in	client_addr;
+  socklen_t		sock_len;
+
+  while (1)
+    {
+      PRINT_DEBUG("server waiting for a client connection...");
+      if (wait_client_sock_connection(config,
+				      &client_sock_fd,
+				      &client_addr,
+				      &sock_len) == 0)
+	break ;
+      PRINT_DEBUG("client connected ! ");
+      debug_socket_distance_address(client_sock_fd);
+    }
+  return (1);
 }
