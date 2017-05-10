@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Mon May  8 16:38:17 2017 Berdrigue Bongolo-Beto
-## Last update Mon May  8 17:12:52 2017 Berdrigue Bongolo-Beto
+## Last update Wed May 10 10:07:58 2017 bongol_b
 ##
 
 CC		=	gcc
@@ -17,6 +17,7 @@ DIR_SERVER	=	ftpserver
 NAME_SERVER	= 	server
 
 SRCS_SERVER	= 	$(DIR_SERVER)/src/main.c \
+			$(DIR_SERVER)/src/myftp_server.c \
 
 OBJS_SERVER	= 	$(SRCS_SERVER:.c=.o)
 
