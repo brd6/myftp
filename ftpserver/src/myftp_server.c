@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 08:25:08 2017 bongol_b
-** Last update Wed May 10 10:15:07 2017 bongol_b
+** Last update Wed May 10 10:31:36 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -16,6 +16,7 @@
 #include <sys/socket.h>
 #include "myftp_server.h"
 #include "errors.h"
+#include "debug.h"
 
 static void		init_sock_address(struct sockaddr_in *sock_address,
 					  int port)
@@ -24,6 +25,7 @@ static void		init_sock_address(struct sockaddr_in *sock_address,
   sock_address->sin_family = AF_INET;
   sock_address->sin_port = htons(port);
   sock_address->sin_addr.s_addr = htonl(INADDR_ANY);
+  PRINT_DEBUG("init_sock_address");
 }
 
 static int		init_socket(int *sock_fd,

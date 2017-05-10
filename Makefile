@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Mon May  8 16:38:17 2017 Berdrigue Bongolo-Beto
-## Last update Wed May 10 10:07:58 2017 bongol_b
+## Last update Wed May 10 10:32:49 2017 bongol_b
 ##
 
 CC		=	gcc
@@ -28,12 +28,13 @@ SRCS_CLIENT	= 	$(DIR_CLIENT)/src/main.c \
 
 OBJS_CLIENT	= 	$(SRCS_CLIENT:.c=.o)
 
-
-CFLAGS 		+= 	$(RELEASE_CFLAGS)
+#CFLAGS 		+= 	$(RELEASE_CFLAGS)
 
 #CFLAGS		+= 	-I./$(DIR_SERVER)/include/
 #CFLAGS 		+= 	-I./$(DIR_CLIENT)/include/
 
+
+all: CFLAGS += 	$(RELEASE_CFLAGS)
 all: $(NAME_SERVER) $(NAME_CLIENT)
 
 $(NAME_SERVER): CFLAGS += -I./$(DIR_SERVER)/include/
@@ -45,13 +46,13 @@ $(NAME_CLIENT): $(OBJS_CLIENT)
 	$(CC) $(OBJS_CLIENT) -o $(NAME_CLIENT)
 
 debug: CFLAGS += $(DEBUG_CFLAGS)
-debug: all
+debug: $(NAME_SERVER)
 
 clean:
 	$(RM) $(OBJS_SERVER)
 	$(RM) $(OBJS_CLIENT)
 
-fclean:
+fclean: clean
 	$(RM) $(NAME_SERVER)
 	$(RM) $(NAME_CLIENT)
 

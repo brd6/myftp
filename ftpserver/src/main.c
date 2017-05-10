@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:35:16 2017 Berdrigue Bongolo-Beto
-** Last update Wed May 10 10:18:37 2017 bongol_b
+** Last update Wed May 10 10:31:54 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -20,6 +20,7 @@ static int	run(char *default_user_path, int port)
 
   if (server_create(&server_sock_fd, port) == 0)
     return (dprintf(2, ERR_SERVER_CREATE, port), 0);
+  printf("sock: %d\n", server_sock_fd);
   close(server_sock_fd);
   (void)default_user_path;
   return (1);
@@ -29,12 +30,15 @@ int		main(int ac, char **av)
 {
   int		port;
 
+  #ifdef DEBUG
+  printf("OK\n");
+  #endif
   if (ac != 3)
     {
       dprintf(2, USAGE, av[0]);
       return (1);
     }
-  if ((port = atoi(av[1])) < 0)
+  if ((port = atoi(av[1])) < 1)
     return (dprintf(2, ERR_PROG_FIRST_ARG), 1);
   return (!run(av[2], atoi(av[1])));
 }
