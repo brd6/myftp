@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 08:25:08 2017 bongol_b
-** Last update Wed May 10 10:31:36 2017 bongol_b
+** Last update Wed May 10 10:39:33 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -46,6 +46,7 @@ static int		init_socket(int *sock_fd,
       close(*sock_fd);
       return (dprintf(2, ERR_INIT_SOCKET_LISTEN), 0);
     }
+  PRINT_DEBUG("init_socket, sock_fd = %d", *sock_fd);
   return (1);
 }
 
