@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 11:04:14 2017 bongol_b
-** Last update Wed May 10 11:04:41 2017 bongol_b
+** Last update Thu May 11 00:28:07 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -32,9 +32,14 @@ static int		init_socket(int *sock_fd,
 				    struct sockaddr_in *sock_address)
 {
   int			ret;
+  int			optval;
 
+  optval = 1;
   if ((*sock_fd = socket(sock_address->sin_family, SOCK_STREAM, 0)) == -1)
     return (dprintf(2, ERR_INIT_SOCKET), 0);
+  ret = setsockopt(*sock_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
+  if (ret == -1)
+    return (dprintf(2, ERR_SOCKET_OPT), 0);
   ret = bind(*sock_fd, (struct sockaddr *)sock_address, sizeof(*sock_address));
   if (ret == -1)
     {

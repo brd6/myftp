@@ -5,12 +5,14 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 09:54:12 2017 bongol_b
-** Last update Wed May 10 22:02:06 2017 bongol_b
+** Last update Thu May 11 00:49:46 2017 bongol_b
 */
 
 #ifndef DEBUG_H_
 # define DEBUG_H_
 
+# include <errno.h>
+# include <string.h>
 # include <stdio.h>
 
 # define COLOR_RED	"\x1b[31m"
@@ -21,12 +23,26 @@
 # define COLOR_CYAN	"\x1b[36m"
 # define COLOR_RESET	"\x1b[0m"
 
+# define PRINT_ERRNO() (errno != 0 ? strerror(errno) : 0)
+
 # ifndef DEBUG
 #  define PRINT_DEBUG(format, ...)
+#  define PRINT_WARNING(format, ...)
+#  define PRINT_ERROR(format, ...)
 # else
-#  define PRINT_DEBUG(format, ...) dprintf(2, COLOR_RED "[DEBUG]" COLOR_RESET \
-					   " %s:%d: " format "\n", \
-					   __FILE__, __LINE__, ##__VA_ARGS__)
+#  define PRINT_DEBUG(format, ...) dprintf(2, "[DEBUG]" format "\n",	\
+					   ##__VA_ARGS__)
+#  define PRINT_WARNING(format, ...) dprintf(2, COLOR_YELLOW "[WARN]"	\
+					     COLOR_RESET		\
+					     " %s:%d: errno: %s - "format"\n", \
+					     __FILE__, __LINE__, \
+					     PRINT_ERRNO(),	 \
+					     ##__VA_ARGS__)
+#  define PRINT_ERROR(format, ...) dprintf(2, COLOR_RED "[ERROR]"	\
+					   COLOR_RESET			\
+					   " %s:%d: errno: %s - "format"\n", \
+					   __FILE__, __LINE__, PRINT_ERRNO, \
+					   ##__VA_ARGS__)
 # endif
 
 #endif /* !DEBUG_H_ */

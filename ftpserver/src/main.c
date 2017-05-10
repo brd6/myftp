@@ -5,55 +5,50 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:35:16 2017 Berdrigue Bongolo-Beto
-** Last update Wed May 10 11:07:48 2017 bongol_b
+** Last update Thu May 11 01:04:07 2017 bongol_b
 */
 
-#include <string.h>
+#include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include "debug.h"
 #include "errors.h"
 #include "myftp_server.h"
 
-static int	create_user(t_user *user,
-			    char const *name,
-			    char const *passwd,
-			    char const *path)
-{
-  if ((user->name = strdup(name)) == NULL)
-    return (0);
-  if (passwd)
-    {
-      if ((user->password = strdup(passwd)) == NULL)
-	return (0);
-    }
-  else
-    user->password = NULL;
-  if ((user->home_dir = strdup(path)) == NULL)
-    return (0);
-  return (1);
-}
+int		g_stop;
 
 static int	run(char *default_user_path, int port)
 {
   t_config	config;
   t_user	anonymous_user;
 
+  PRINT_DEBUG("server pid=%d", getpid());
+  if (signal(SIGCHLD, SIG_IGN) == SIG_ERR)
+    return (dprintf(2, ERR_SET_SIGNAL), 0);
   config.port = port;
   if (server_create(&(config.sock_fd), config.port) == 0)
     return (dprintf(2, ERR_SERVER_CREATE, config.port), 0);
-  if (create_user(&anonymous_user, "anonymous", NULL, default_user_path) == 0)
+  if (user_create(&anonymous_user, "anonymous", NULL, default_user_path) == 0)
     return (dprintf(2, ERR_CREATE_USER), 0);
   server_run(&config, &anonymous_user);
   close(config.sock_fd);
-  (void)default_user_path;
   return (1);
+}
+
+void		sigint_handler(int sig)
+{
+  g_stop = 1;
+
+  (void)sig;
 }
 
 int		main(int ac, char **av)
 {
   int		port;
 
+  g_stop = 0;
+  /* signal(SIGINT, sigint_handler); */
   if (ac != 3)
     {
       dprintf(2, USAGE, av[0]);
