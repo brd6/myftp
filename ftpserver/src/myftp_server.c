@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 08:25:08 2017 bongol_b
-** Last update Thu May 11 11:38:51 2017 bongol_b
+** Last update Thu May 11 18:29:41 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -20,12 +20,11 @@
 #include "errors.h"
 #include "debug.h"
 
-static int		wait_client_sock_connection(t_config const *config,
-						    int *client_sock_fd,
+static int		wait_client_sock_connection(int *client_sock_fd,
 						    struct sockaddr_in *addr,
 						    socklen_t *sock_len)
 {
-  *client_sock_fd = accept(config->sock_fd,
+  *client_sock_fd = accept(g_config.sock_fd,
 			  (struct sockaddr *)addr,
 			  sock_len);
   if (*client_sock_fd == -1)
@@ -35,40 +34,37 @@ static int		wait_client_sock_connection(t_config const *config,
   return (1);
 }
 
-static int		handler_new_client(t_config const *config,
-					   int client_sock_fd)
+static int		handler_new_client(int client_sock_fd)
 {
   int			child_pid;
 
   PRINT_DEBUG("handle new client");
   if ((child_pid = fork()) == 0)
     {
-      close(config->sock_fd);
-      service_handler(config, client_sock_fd);
+      close(g_config.sock_fd);
+      service_handler(client_sock_fd);
       close(client_sock_fd);
       PRINT_DEBUG("child process finished");
-      exit(1);
+      exit(EXIT_SUCCESS);
     }
   close(client_sock_fd);
   return (1);
 }
 
-int			server_run(t_config const *config, t_user const *user)
+int			server_run()
 {
   int			client_sock_fd;
   struct sockaddr_in	client_addr;
   socklen_t		sock_len;
 
-  while (!g_stop)
+  while (!g_config.should_stop)
     {
       PRINT_DEBUG("server waiting for a client connection...");
-      if (wait_client_sock_connection(config,
-				      &client_sock_fd,
+      if (wait_client_sock_connection(&client_sock_fd,
 				      &client_addr,
 				      &sock_len) == 1)
-	handler_new_client(config, client_sock_fd);
+	handler_new_client(client_sock_fd);
     }
   PRINT_DEBUG("server stop");
-  (void)user;
   return (1);
 }

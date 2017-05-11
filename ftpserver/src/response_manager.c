@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 15:02:57 2017 bongol_b
-** Last update Thu May 11 15:25:23 2017 bongol_b
+** Last update Thu May 11 18:18:43 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -32,7 +32,7 @@ static t_msg	g_msg_types[] = {
   {"502", "Command not implemented."},
   {"501", "Syntax error in parameters or arguments."},
   {"500", "Syntax error, command unrecognized."},
-  {NULL, NULL}
+  {0, 0}
 };
 
 static int	get_msg_index(const char *code)

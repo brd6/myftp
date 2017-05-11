@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 11:43:46 2017 bongol_b
-** Last update Thu May 11 15:32:14 2017 bongol_b
+** Last update Thu May 11 17:19:18 2017 bongol_b
 */
 
 #include <string.h>
@@ -30,7 +30,7 @@ t_msg		msg_create(const char *code, const char *text)
 
 int		packet_msg_send(int socket_fd, t_msg const *msg)
 {
-  char		buff[PACKET_MSG_SIZE];
+  char		buff[PACKET_BUFF_SIZE];
 
   pack_msg(msg, buff);
   return (packet_send(socket_fd, buff));
