@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 08:25:08 2017 bongol_b
-** Last update Thu May 11 18:29:41 2017 bongol_b
+** Last update Thu May 11 21:33:36 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -51,12 +51,21 @@ static int		handler_new_client(int client_sock_fd)
   return (1);
 }
 
+static void		reset_current_user()
+{
+  memset(g_config.current_user.name, 0, BUFF_SIZE);
+  memset(g_config.current_user.password, 0, BUFF_SIZE);
+  memset(g_config.current_user.home_dir, 0, BUFF_SIZE);
+}
+
 int			server_run()
 {
   int			client_sock_fd;
   struct sockaddr_in	client_addr;
   socklen_t		sock_len;
 
+  reset_current_user();
+  memset(g_config.current_path, 0, PATH_MAX);
   while (!g_config.should_stop)
     {
       PRINT_DEBUG("server waiting for a client connection...");
