@@ -5,13 +5,17 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Thu May 11 00:54:47 2017 bongol_b
+** Last update Thu May 11 15:25:08 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_
 # define MYFTP_SERVER_H_
 
 # define SERVER_LISTEN_BACKLOG	5
+# define RESPONSE_DIGIT_SIZE	4
+# define PACKET_MSG_SIZE	1024
+# define RAW_DATA_SIZE		(PACKET_MSG_SIZE - RESPONSE_DIGIT_SIZE)
+# define UNKNOW_MSG_TYPE_IDX	-1
 
 typedef struct	s_user
 {
@@ -26,7 +30,18 @@ typedef struct	s_config
   int		port;
 }		t_config;
 
-extern int	g_stop;
+typedef struct	s_command
+{
+
+}		t_command;
+
+typedef struct	s_msg
+{
+  char		*code;
+  char		*text;
+}		t_msg;
+
+extern int		g_stop;
 
 int		server_create(int *sock_fd, int port);
 int		server_run(t_config const *config, t_user const *user);
@@ -40,5 +55,14 @@ int		user_create(t_user *user,
 			    char const *path);
 
 void		service_handler(t_config const *config, int client_sock_fd);
+
+t_msg		msg_create(const char *code, const char *text);
+int		packet_msg_send(int socket_fd, t_msg const *msg);
+int		packet_send(int socket_fd, char *buff);
+int		packet_receive(int socket_fd, char *buff);
+
+int		send_msg_response(int socket_fd,
+				  const char *code,
+				  const char *text);
 
 #endif /* !MYFTP_SERVER_H_ */

@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Mon May  8 16:38:17 2017 Berdrigue Bongolo-Beto
-## Last update Wed May 10 23:46:19 2017 bongol_b
+## Last update Thu May 11 15:03:18 2017 bongol_b
 ##
 
 CC		=	gcc
@@ -22,6 +22,9 @@ SRCS_SERVER	= 	$(DIR_SERVER)/src/main.c \
 			$(DIR_SERVER)/src/socket_debug_utils.c \
 			$(DIR_SERVER)/src/user_create.c \
 			$(DIR_SERVER)/src/service_handler.c \
+			$(DIR_SERVER)/src/packet_manager.c \
+			$(DIR_SERVER)/src/packet_manager_message.c \
+			$(DIR_SERVER)/src/response_manager.c \
 
 OBJS_SERVER	= 	$(SRCS_SERVER:.c=.o)
 

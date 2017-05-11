@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:35:16 2017 Berdrigue Bongolo-Beto
-** Last update Thu May 11 01:04:07 2017 bongol_b
+** Last update Thu May 11 15:03:52 2017 bongol_b
 */
 
 #include <signal.h>
@@ -16,7 +16,7 @@
 #include "errors.h"
 #include "myftp_server.h"
 
-int		g_stop;
+int	g_stop;
 
 static int	run(char *default_user_path, int port)
 {
@@ -29,7 +29,7 @@ static int	run(char *default_user_path, int port)
   config.port = port;
   if (server_create(&(config.sock_fd), config.port) == 0)
     return (dprintf(2, ERR_SERVER_CREATE, config.port), 0);
-  if (user_create(&anonymous_user, "anonymous", NULL, default_user_path) == 0)
+  if (user_create(&anonymous_user, "Anonymous", NULL, default_user_path) == 0)
     return (dprintf(2, ERR_CREATE_USER), 0);
   server_run(&config, &anonymous_user);
   close(config.sock_fd);

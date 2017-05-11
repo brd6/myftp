@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 08:24:59 2017 bongol_b
-** Last update Thu May 11 00:31:26 2017 bongol_b
+** Last update Thu May 11 14:47:54 2017 bongol_b
 */
 
 #ifndef ERRORS_H_
@@ -25,5 +25,7 @@ on port: %d\n"
 # define ERR_CREATE_USER	"Error: Unable to create an user\n"
 # define ERR_SET_SIGNAL		"Error: Unable to set a signal\n"
 # define ERR_SOCKET_OPT		"Error: Unable to set a socket option\n"
+# define ERR_WRITE		"Error: An error occured during write process\n"
+# define ERR_READ		"Error: An error occured during read process\n"
 
 #endif /* !ERRORS_H_ */

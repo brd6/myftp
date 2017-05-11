@@ -5,24 +5,30 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 23:42:04 2017 bongol_b
-** Last update Thu May 11 01:05:48 2017 bongol_b
+** Last update Thu May 11 15:25:32 2017 bongol_b
 */
 
+#include <stdlib.h>
 #include "myftp_server.h"
 
-/* static int	service_loop() */
-/* { */
-/*   return (1); */
-/* } */
+static int	service_loop()
+{
+  return (1);
+}
 
-/* static void	service_stop() */
-/* { */
+static int	service_stop()
+{
+  return (1);
+}
 
-/* } */
+static int	service_authentification(int client_sock_fd)
+{
+  return (1);
+}
 
 void		service_handler(t_config const *config, int client_sock_fd)
 {
-  //printf("ok");
+  send_msg_response(client_sock_fd, "220", NULL);
+  service_authentification(client_sock_fd);
   (void)config;
-  (void)client_sock_fd;
 }
