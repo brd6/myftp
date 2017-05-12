@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Mon May  8 16:38:17 2017 Berdrigue Bongolo-Beto
-## Last update Thu May 11 21:28:00 2017 bongol_b
+## Last update Fri May 12 09:50:14 2017 bongol_b
 ##
 
 CC		=	gcc
@@ -19,6 +19,7 @@ NAME_SERVER	= 	server
 SRCS_SERVER_CMD	=	$(DIR_SERVER)/src/command_manager.c \
 			$(DIR_SERVER)/src/commands/cmd_user.c \
 			$(DIR_SERVER)/src/commands/cmd_pass.c \
+			$(DIR_SERVER)/src/commands/cmd_quit.c \
 
 
 SRCS_SERVER	= 	$(DIR_SERVER)/src/main.c \
