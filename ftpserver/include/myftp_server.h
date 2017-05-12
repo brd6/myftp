@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Fri May 12 12:32:00 2017 bongol_b
+** Last update Fri May 12 12:34:45 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_
@@ -93,6 +93,7 @@ int		cmd_quit_execute(int sock_fd, const char **args);
 int		cmd_pwd_execute(int sock_fd, const char **args);
 int		cmd_cwd_execute(int sock_fd, const char **args);
 int		cmd_cdup_execute(int sock_fd, const char **args);
+int		cmd_dele_execute(int sock_fd, const char **args);
 
 int		skip_space(const char *str);
 
