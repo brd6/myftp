@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 15:02:57 2017 bongol_b
-** Last update Fri May 12 12:29:00 2017 bongol_b
+** Last update Fri May 12 23:54:00 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -34,6 +34,7 @@ static t_msg	g_msg_types[] = {
   {"501", "Syntax error in parameters or arguments."},
   {"500", "Syntax error, command unrecognized."},
   {"550", "Requested action not taken."},
+  {"215", "UNIX system type."},
   {0, 0}
 };
 

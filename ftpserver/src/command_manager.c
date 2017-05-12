@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 18:38:09 2017 bongol_b
-** Last update Fri May 12 22:24:15 2017 bongol_b
+** Last update Sat May 13 00:20:25 2017 bongol_b
 */
 
 #include <string.h>
@@ -28,6 +28,7 @@ static t_cmd	g_cmds[] = {
   {"RETR", cmd_retr_execute},
   {"STOR", cmd_stor_execute},
   {"LIST", cmd_list_execute},
+  {"SYST", cmd_syst_execute},
   {NULL, NULL}
 };
 
@@ -43,6 +44,24 @@ static int	get_command_index(const char *cmd)
       i++;
     }
   return (UNKNOW_CMD_IDX);
+}
+
+void		get_debug_available_cmds(char *buff)
+{
+  int		i;
+  int		j;
+
+  i = 0;
+  j = 0;
+  buff[0] = 0;
+  while (g_cmds[i].command)
+    {
+      sprintf(&buff[strlen(buff)], " %s", g_cmds[i].command);
+      if (i % 14 == 0 && i != 0 && g_cmds[i + 1].command)
+	sprintf(&buff[strlen(buff)], "\n");
+      i++;
+    }
+  sprintf(&buff[strlen(buff)], "\n");
 }
 
 int		get_cmd(const char *buff, t_cmd *cmd)
@@ -64,6 +83,5 @@ int		is_auth_cmd_allowed(const char *cmd)
 	   strcasecmp(cmd, "PASS") == 0 ||
 	   strcasecmp(cmd, "QUIT") == 0);
   PRINT_DEBUG("is_auth_cmd_allowed: check=%d for '%s'", check, cmd);
-
   return (check);
 }

@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Fri May 12 22:20:32 2017 bongol_b
+** Last update Sat May 13 00:06:08 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_
@@ -86,6 +86,7 @@ int		send_msg_response(int socket_fd,
 
 int		get_cmd(const char *buff, t_cmd *cmd);
 int		is_auth_cmd_allowed(const char *cmd);
+void		get_debug_available_cmds(char *buff);
 
 int		cmd_user_execute(int sock_fd, const char **args);
 int		cmd_pass_execute(int sock_fd, const char **args);
@@ -101,6 +102,7 @@ int		cmd_noop_execute(int sock_fd, const char **args);
 int		cmd_retr_execute(int sock_fd, const char **args);
 int		cmd_stor_execute(int sock_fd, const char **args);
 int		cmd_list_execute(int sock_fd, const char **args);
+int		cmd_syst_execute(int sock_fd, const char **args);
 
 int		skip_space(const char *str);
 
