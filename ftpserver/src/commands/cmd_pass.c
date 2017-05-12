@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 19:15:02 2017 bongol_b
-** Last update Fri May 12 09:23:52 2017 bongol_b
+** Last update Fri May 12 11:23:34 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -20,6 +20,8 @@ int		cmd_pass_execute(int sock_fd, const char **args)
   if (args[0] == NULL ||
       g_config.current_user.name[0] == 0)
     return (0);
+  if (g_config.current_user.is_auth)
+    return (send_msg_response(sock_fd, "230", NULL), 0);
   if (args[1] != NULL)
     strcpy(g_config.current_user.pass, args[1]);
   else
@@ -27,11 +29,14 @@ int		cmd_pass_execute(int sock_fd, const char **args)
   PRINT_DEBUG("cmd_pass_execute: pass=%s", g_config.current_user.pass);
   is_auth = user_try_auth(g_config.current_user.name,
 			  g_config.current_user.pass);
+  g_config.current_user.is_auth = is_auth;
   if (!is_auth)
     {
       PRINT_DEBUG("cmd_pass_execute: fail.");
       return (send_msg_response(sock_fd, "530", NULL), 0);
     }
+  user_get(g_config.current_user.name, &g_config.current_user);
+  g_config.current_user.is_auth = is_auth;
   PRINT_DEBUG("cmd_pass_execute: success !");
   return (send_msg_response(sock_fd, "230", NULL), 1);
 }

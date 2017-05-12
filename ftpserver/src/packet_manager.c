@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 14:55:49 2017 bongol_b
-** Last update Thu May 11 22:36:15 2017 bongol_b
+** Last update Fri May 12 11:30:22 2017 bongol_b
 */
 
 #include <unistd.h>
@@ -38,6 +38,11 @@ int		packet_receive(int socket_fd, char *buff)
   PRINT_DEBUG("packet_receive - recv=%d rmnd=%d", i, PACKET_BUFF_SIZE - i);
   if (i > 0 && buff[i - 1] == '\n')
     buff[i - 1] = 0;
+  else
+    {
+      PRINT_WARNING("hard stop");
+      g_config.should_stop = 1;
+    }
   buff[i] = 0;
   PRINT_DEBUG("buff='%s'", buff);
   return (1);

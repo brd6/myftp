@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 08:25:08 2017 bongol_b
-** Last update Thu May 11 23:13:22 2017 bongol_b
+** Last update Fri May 12 11:11:38 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -56,6 +56,7 @@ static void		reset_current_user()
   memset(g_config.current_user.name, 0, BUFF_SIZE);
   memset(g_config.current_user.pass, 0, BUFF_SIZE);
   memset(g_config.current_user.home_dir, 0, BUFF_SIZE);
+  g_config.current_user.is_auth = 0;
 }
 
 int			server_run()
