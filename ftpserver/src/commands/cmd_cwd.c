@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 12:12:04 2017 bongol_b
-** Last update Fri May 12 12:29:03 2017 bongol_b
+** Last update Fri May 12 12:30:48 2017 bongol_b
 */
 
 #include <unistd.h>
@@ -15,10 +15,8 @@
 
 int		cmd_cwd_execute(int sock_fd, const char **args)
 {
-  PRINT_DEBUG("cmd_cwd_execute");
   if (args[0] == NULL || args[1] == NULL)
     return (send_msg_response(sock_fd, "550", NULL), 0);
-  PRINT_DEBUG("cmd_cwd_execute");
   chdir(args[1]);
   send_msg_response(sock_fd, "250", NULL);
   return (1);
