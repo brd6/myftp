@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 11:43:46 2017 bongol_b
-** Last update Thu May 11 17:19:18 2017 bongol_b
+** Last update Fri May 12 09:00:50 2017 bongol_b
 */
 
 #include <string.h>
@@ -19,13 +19,11 @@ static void	pack_msg(t_msg const *msg, char *buff)
   strcpy(&buff[strlen(buff)], "\n");
 }
 
-t_msg		msg_create(const char *code, const char *text)
+int		msg_create(const char *code, const char *text, t_msg *msg)
 {
-  t_msg		msg;
-
-  strcpy(msg.code, code);
-  strcpy(msg.text, text);
-  return (msg);
+  strcpy(msg->code, code);
+  strcpy(msg->text, text);
+  return (1);
 }
 
 int		packet_msg_send(int socket_fd, t_msg const *msg)

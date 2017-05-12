@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 23:42:04 2017 bongol_b
-** Last update Thu May 11 23:22:53 2017 bongol_b
+** Last update Fri May 12 09:27:10 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -31,16 +31,15 @@ static int	auth_process(int sock_fd, t_auth_state *state)
   char		**args;
 
   PRINT_DEBUG("auth_process: sock_fd=%d", sock_fd);
-  if ((ret = packet_receive(sock_fd, buff)) == 0)
-    return (0);
-  if ((args = my_str_split(buff, WORD_SEPS)) == NULL ||
-      my_wordtab_count((const char **)args) < 1)
+  if ((ret = packet_receive(sock_fd, buff)) == 0 ||
+      ((args = my_str_split(buff, WORD_SEPS)) == NULL ||
+       my_wordtab_count((const char **)args) < 1))
     return (0);
   if ((get_cmd(args[0], &cmd) == 0) ||
       !is_auth_cmd_allowed(args[0]))
-    send_msg_response(sock_fd, "530", "Please login with USER and PASS.");
+    send_msg_response(sock_fd, "530", NULL);
   else if (strcasecmp(cmd.command, "PASS") == 0 && *state == NONE)
-    send_msg_response(sock_fd, "530", "Login with USER first.");
+    send_msg_response(sock_fd, "530", NULL);
   else if (cmd.execute(sock_fd, (const char **)args))
     {
       if (strcasecmp(cmd.command, "USER") == 0 && *state != NAME_STEP)
@@ -63,7 +62,7 @@ static int	service_authentification(int sock_fd)
   /*   { */
   /*   } */
   auth_process(sock_fd, &state);
-  //auth_process(sock_fd, &state);
+  auth_process(sock_fd, &state);
   return (1);
 }
 

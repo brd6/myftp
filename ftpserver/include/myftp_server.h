@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Thu May 11 22:23:19 2017 bongol_b
+** Last update Fri May 12 09:24:07 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_
@@ -55,7 +55,7 @@ typedef struct	s_cmd
 
 typedef struct	s_msg
 {
-  char		*code;
+  char		code[BUFF_SIZE];
   char		text[BUFF_SIZE];
 }		t_msg;
 
@@ -69,13 +69,11 @@ void		debug_socket_distance_address(int sock_fd);
 
 int		user_get(const char *name, t_user *user);
 int		user_change_home(const char *user_name, const char *home_dir);
-int		user_try_auth(const char *user_name,
-			      const char *pass,
-			      t_user *user);
+int		user_try_auth(const char *user_name, const char *pass);
 
 int		service_handler(int client_sock_fd);
 
-t_msg		msg_create(const char *code, const char *text);
+int		msg_create(const char *code, const char *text, t_msg *msg);
 int		packet_msg_send(int socket_fd, t_msg const *msg);
 int		packet_send(int socket_fd, char *buff);
 int		packet_receive(int socket_fd, char *buff);

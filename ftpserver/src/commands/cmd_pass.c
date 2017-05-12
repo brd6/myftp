@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 19:15:02 2017 bongol_b
-** Last update Thu May 11 22:32:49 2017 bongol_b
+** Last update Fri May 12 09:23:52 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -26,13 +26,12 @@ int		cmd_pass_execute(int sock_fd, const char **args)
     g_config.current_user.pass[0] = 0;
   PRINT_DEBUG("cmd_pass_execute: pass=%s", g_config.current_user.pass);
   is_auth = user_try_auth(g_config.current_user.name,
-			  g_config.current_user.pass,
-			  &(g_config.current_user));
+			  g_config.current_user.pass);
   if (!is_auth)
     {
       PRINT_DEBUG("cmd_pass_execute: fail.");
-      return (0);
+      return (send_msg_response(sock_fd, "530", NULL), 0);
     }
   PRINT_DEBUG("cmd_pass_execute: success !");
-  return (1);
+  return (send_msg_response(sock_fd, "230", NULL), 1);
 }
