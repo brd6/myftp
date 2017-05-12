@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 23:42:04 2017 bongol_b
-** Last update Fri May 12 11:38:20 2017 bongol_b
+** Last update Fri May 12 12:21:30 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -46,9 +46,10 @@ static int	service_loop_dispatch(int sock_fd, t_auth_state *auth_state)
 	      g_config.current_user.is_auth);
   if ((args = get_packet_args(sock_fd)) == NULL)
     return (0);
-  if ((get_cmd(args[0], &cmd) == 0) ||
-      (*auth_state != SUCCESS && !is_auth_cmd_allowed(args[0])))
+  if (*auth_state != SUCCESS && !is_auth_cmd_allowed(args[0]))
     send_msg_response(sock_fd, "530", NULL);
+  else if (get_cmd(args[0], &cmd) == 0)
+    send_msg_response(sock_fd, "500", NULL);
   else if (strcasecmp(cmd.command, "PASS") == 0 && *auth_state == NONE)
     send_msg_response(sock_fd, "530", NULL);
   else if (cmd.execute(sock_fd, (const char **)args))

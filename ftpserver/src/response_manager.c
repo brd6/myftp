@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 15:02:57 2017 bongol_b
-** Last update Fri May 12 09:01:20 2017 bongol_b
+** Last update Fri May 12 12:29:00 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -33,6 +33,7 @@ static t_msg	g_msg_types[] = {
   {"502", "Command not implemented."},
   {"501", "Syntax error in parameters or arguments."},
   {"500", "Syntax error, command unrecognized."},
+  {"550", "Requested action not taken."},
   {0, 0}
 };
 
@@ -41,7 +42,7 @@ static int	get_msg_index(const char *code)
   int		i;
 
   i = 0;
-  while (g_msg_types[i].code && g_msg_types[i].text)
+  while (g_msg_types[i].code[0] && g_msg_types[i].text[0])
     {
       if (strcmp(g_msg_types[i].code, code) == 0)
 	return (i);
@@ -58,7 +59,10 @@ int		send_msg_response(int socket_fd,
   t_msg		msg;
 
   if ((msg_idx = get_msg_index(code)) == UNKNOW_MSG_TYPE_IDX)
-    return (0);
+    {
+      PRINT_ERROR("Responde code not found : %s", code);
+      return (0);
+    }
   if (text != NULL)
     msg_create(code, text, &msg);
   else
