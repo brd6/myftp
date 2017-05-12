@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 18:38:09 2017 bongol_b
-** Last update Fri May 12 09:45:31 2017 bongol_b
+** Last update Fri May 12 11:46:34 2017 bongol_b
 */
 
 #include <string.h>
@@ -16,7 +16,8 @@
 static t_cmd	g_cmds[] = {
   {"USER", cmd_user_execute},
   {"PASS", cmd_pass_execute},
-  {"QUIT", cmd_quit_execute}
+  {"QUIT", cmd_quit_execute},
+  {"PWD", cmd_pwd_execute}
 };
 
 static int	get_command_index(const char *cmd)

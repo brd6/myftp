@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 09:54:12 2017 bongol_b
-** Last update Thu May 11 00:49:46 2017 bongol_b
+** Last update Fri May 12 11:55:34 2017 bongol_b
 */
 
 #ifndef DEBUG_H_
@@ -41,7 +41,7 @@
 #  define PRINT_ERROR(format, ...) dprintf(2, COLOR_RED "[ERROR]"	\
 					   COLOR_RESET			\
 					   " %s:%d: errno: %s - "format"\n", \
-					   __FILE__, __LINE__, PRINT_ERRNO, \
+					   __FILE__, __LINE__, PRINT_ERRNO(), \
 					   ##__VA_ARGS__)
 # endif
 

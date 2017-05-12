@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 23:42:04 2017 bongol_b
-** Last update Fri May 12 11:18:15 2017 bongol_b
+** Last update Fri May 12 11:38:20 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -40,6 +40,10 @@ static int	service_loop_dispatch(int sock_fd, t_auth_state *auth_state)
   t_cmd		cmd;
   char		**args;
 
+  PRINT_DEBUG("user connected : name='%s', home='%s' - auth=%d",
+	      g_config.current_user.name,
+	      g_config.current_user.home_dir,
+	      g_config.current_user.is_auth);
   if ((args = get_packet_args(sock_fd)) == NULL)
     return (0);
   if ((get_cmd(args[0], &cmd) == 0) ||
