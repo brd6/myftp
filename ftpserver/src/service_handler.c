@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 23:42:04 2017 bongol_b
-** Last update Fri May 12 09:55:15 2017 bongol_b
+** Last update Fri May 12 10:11:56 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -58,19 +58,17 @@ static int	service_authentification(int sock_fd)
 
   state = NONE;
   PRINT_DEBUG("service auth");
-  while (!g_config.should_stop)
-    {
-      if (auth_process(sock_fd, &state) && state == SUCCESS)
-	break ;
-    }
+  while (!g_config.should_stop && state != SUCCESS)
+    auth_process(sock_fd, &state);
   PRINT_DEBUG("service_auth : end");
-  return (1);
+  return (state == SUCCESS);
 }
 
 int		service_handler(int sock_fd)
 {
   if (send_msg_response(sock_fd, "220", NULL) == 0)
     return (dprintf(2, ERR_SEND_MSG), 0);
-  service_authentification(sock_fd);
+  if (service_authentification(sock_fd) == 0)
+    return (0);
   return (1);
 }
