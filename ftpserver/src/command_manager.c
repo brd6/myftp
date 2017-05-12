@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 18:38:09 2017 bongol_b
-** Last update Fri May 12 12:34:06 2017 bongol_b
+** Last update Fri May 12 22:24:15 2017 bongol_b
 */
 
 #include <string.h>
@@ -20,7 +20,15 @@ static t_cmd	g_cmds[] = {
   {"PWD", cmd_pwd_execute},
   {"CWD", cmd_cwd_execute},
   {"CDUP", cmd_cdup_execute},
-  {"DELE", cmd_dele_execute}
+  {"DELE", cmd_dele_execute},
+  {"PASV", cmd_pasv_execute},
+  {"PORT", cmd_port_execute},
+  {"HELP", cmd_help_execute},
+  {"NOOP", cmd_noop_execute},
+  {"RETR", cmd_retr_execute},
+  {"STOR", cmd_stor_execute},
+  {"LIST", cmd_list_execute},
+  {NULL, NULL}
 };
 
 static int	get_command_index(const char *cmd)
