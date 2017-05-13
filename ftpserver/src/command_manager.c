@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 18:38:09 2017 bongol_b
-** Last update Sat May 13 00:20:25 2017 bongol_b
+** Last update Sat May 13 11:21:26 2017 bongol_b
 */
 
 #include <string.h>
@@ -58,10 +58,10 @@ void		get_debug_available_cmds(char *buff)
     {
       sprintf(&buff[strlen(buff)], " %s", g_cmds[i].command);
       if (i % 14 == 0 && i != 0 && g_cmds[i + 1].command)
-	sprintf(&buff[strlen(buff)], "\n");
+	sprintf(&buff[strlen(buff)], "\r\n");
       i++;
     }
-  sprintf(&buff[strlen(buff)], "\n");
+  sprintf(&buff[strlen(buff)], "\r\n");
 }
 
 int		get_cmd(const char *buff, t_cmd *cmd)

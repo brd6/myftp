@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 11:43:46 2017 bongol_b
-** Last update Fri May 12 09:00:50 2017 bongol_b
+** Last update Sat May 13 11:23:29 2017 bongol_b
 */
 
 #include <string.h>
@@ -16,7 +16,7 @@ static void	pack_msg(t_msg const *msg, char *buff)
   strcpy(buff, msg->code);
   strcpy(&buff[strlen(buff)], " ");
   strcpy(&buff[strlen(buff)], msg->text);
-  strcpy(&buff[strlen(buff)], "\n");
+  strcpy(&buff[strlen(buff)], "\r\n");
 }
 
 int		msg_create(const char *code, const char *text, t_msg *msg)
