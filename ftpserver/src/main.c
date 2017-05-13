@@ -5,9 +5,10 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:35:16 2017 Berdrigue Bongolo-Beto
-** Last update Sat May 13 13:02:39 2017 bongol_b
+** Last update Sat May 13 23:09:23 2017 bongol_b
 */
 
+#include <netinet/in.h>
 #include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -27,7 +28,7 @@ static int	run(char *default_user_path, int port)
   g_config.sock_fd = -1;
   g_config.client_sock_fd = -1;
   g_config.parent_pid = getpid();
-  if (server_create(&(g_config.sock_fd), g_config.port) == 0)
+  if ((g_config.sock_fd = server_create(INADDR_ANY, port, 1)) == -1)
     return (dprintf(2, ERR_SERVER_CREATE, g_config.port), 0);
   if (user_change_home("anonymous", default_user_path) == 0)
     return (dprintf(2, ERR_USER_CHANGE_DIR), 0);

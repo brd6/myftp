@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 23:42:04 2017 bongol_b
-** Last update Fri May 12 12:21:30 2017 bongol_b
+** Last update Sun May 14 00:15:47 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -62,6 +62,7 @@ int		service_handler(int sock_fd)
   t_auth_state	auth_state;
 
   auth_state = NONE;
+  init_sock_addr(sock_fd, &g_config.server.addr_in);
   if (send_msg_response(sock_fd, "220", NULL) == 0)
     return (dprintf(2, ERR_SEND_MSG), 0);
   while (!g_config.should_stop)

@@ -5,13 +5,15 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Sat May 13 12:54:11 2017 bongol_b
+** Last update Sat May 13 23:19:22 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_
 # define MYFTP_SERVER_H_
 
 # include <linux/limits.h>
+# include <stdint.h>
+# include <arpa/inet.h>
 
 # define SERVER_LISTEN_BACKLOG	5
 # define RESPONSE_DIGIT_SIZE	4
@@ -22,6 +24,9 @@
 # define UNKNOW_CMD_IDX		-1
 # define BUFF_SIZE		(PACKET_BUFF_SIZE >> 1)
 # define WORD_SEPS		" \t"
+# define MAX_TRY_CREATE_SERVER	100
+# define MIN_PASV_PORT		1024
+# define MAX_PASV_PORT		65535
 
 typedef enum	e_auth_state
   {
@@ -31,6 +36,13 @@ typedef enum	e_auth_state
     SUCCESS
   }		t_auth_state;
 
+typedef enum	e_data_mode
+  {
+    _NONE = -1,
+    PASSIVE,
+    ACTIVE
+  }		t_data_mode;
+
 typedef struct	s_user
 {
   char		name[BUFF_SIZE];
@@ -39,11 +51,27 @@ typedef struct	s_user
   int		is_auth;
 }		t_user;
 
+typedef struct sockaddr_in	t_sockaddr_in;
+
+typedef struct	s_socket
+{
+  int		sock_cmd;
+  uint16_t	port_cmd;
+  int		sock_data;
+  uint16_t	port_data;
+  t_sockaddr_in	addr_in;
+}		t_socket;
+
 typedef struct	s_config
 {
+  t_socket	server;
+  t_socket	client;
+  t_data_mode	data_mode;
+
   int		sock_fd;
   int		client_sock_fd;
   int		port;
+
   int		parent_pid;
   char		current_path[PATH_MAX];
   int		should_stop;
@@ -64,11 +92,15 @@ typedef struct	s_msg
 
 extern t_config	g_config;
 
-int		server_create(int *sock_fd, int port);
+int		server_create(unsigned int addr,
+			      unsigned short port,
+			      int reuse_addr);
 int		server_run();
 
 void		debug_socket_address(int sock_fd);
 void		debug_socket_distance_address(int sock_fd);
+
+int		init_sock_addr(int sock_fd, struct sockaddr_in *sock_addr);
 
 int		user_get(const char *name, t_user *user);
 int		user_change_home(const char *user_name, const char *home_dir);
