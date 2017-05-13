@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 08:25:08 2017 bongol_b
-** Last update Sat May 13 11:35:12 2017 bongol_b
+** Last update Sat May 13 12:58:46 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -29,6 +29,7 @@ static int		wait_client_sock_connection(int *client_sock_fd,
 			  sock_len);
   if (*client_sock_fd == -1)
     return (dprintf(2, ERR_SOCKET_ACCEPT, strerror(errno)), 0);
+  g_config.client_sock_fd = *client_sock_fd;
   PRINT_DEBUG("client connected !");
   debug_socket_distance_address(*client_sock_fd);
   return (1);

@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Sat May 13 00:06:08 2017 bongol_b
+** Last update Sat May 13 12:54:11 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_
@@ -42,7 +42,9 @@ typedef struct	s_user
 typedef struct	s_config
 {
   int		sock_fd;
+  int		client_sock_fd;
   int		port;
+  int		parent_pid;
   char		current_path[PATH_MAX];
   int		should_stop;
   t_user	current_user;
