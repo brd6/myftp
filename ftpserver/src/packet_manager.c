@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 14:55:49 2017 bongol_b
-** Last update Fri May 12 11:30:22 2017 bongol_b
+** Last update Sat May 13 12:00:53 2017 bongol_b
 */
 
 #include <unistd.h>
@@ -36,6 +36,13 @@ int		packet_receive(int socket_fd, char *buff)
   if ((i = read(socket_fd, buff, PACKET_BUFF_SIZE)) == -1)
     return (dprintf(2, ERR_READ), 0);
   PRINT_DEBUG("packet_receive - recv=%d rmnd=%d", i, PACKET_BUFF_SIZE - i);
+  buff[i] = 0;
+
+  if (strncmp(&buff[strlen(buff) - 2], "\r\n", 2) == 0)
+    {
+      buff[strlen(buff) - 1] = '\n';
+      buff[strlen(buff) - 2] = 0;
+    }
   if (i > 0 && buff[i - 1] == '\n')
     buff[i - 1] = 0;
   else
@@ -44,6 +51,6 @@ int		packet_receive(int socket_fd, char *buff)
       g_config.should_stop = 1;
     }
   buff[i] = 0;
-  PRINT_DEBUG("buff='%s'", buff);
+  PRINT_DEBUG("packet_receive - buff='%s'", buff);
   return (1);
 }
