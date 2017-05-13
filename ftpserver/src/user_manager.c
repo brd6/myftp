@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 22:05:55 2017 bongol_b
-** Last update Fri May 12 09:41:57 2017 bongol_b
+** Last update Sat May 13 12:05:50 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -16,6 +16,7 @@
 static t_user	g_users[] = {
   {"anonymous", "", "/"},
   {"brd6", "brd6", "/home/brd6"},
+  {"bongol_b", "123", "/home/bongol_b"},
   {0, 0, 0}
 };
 
