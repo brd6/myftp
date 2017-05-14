@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Mon May  8 16:38:17 2017 Berdrigue Bongolo-Beto
-## Last update Sun May 14 14:19:00 2017 bongol_b
+## Last update Sun May 14 21:33:50 2017 bongol_b
 ##
 
 CC		=	gcc
@@ -32,6 +32,7 @@ SRCS_SERVER_CMD	=	$(DIR_SERVER)/src/command_manager.c \
 			$(DIR_SERVER)/src/commands/cmd_stor.c \
 			$(DIR_SERVER)/src/commands/cmd_list.c \
 			$(DIR_SERVER)/src/commands/cmd_syst.c \
+			$(DIR_SERVER)/src/commands/cmd_type.c \
 
 
 SRCS_SERVER	= 	$(DIR_SERVER)/src/main.c \

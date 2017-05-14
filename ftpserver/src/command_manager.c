@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 18:38:09 2017 bongol_b
-** Last update Sun May 14 02:41:19 2017 bongol_b
+** Last update Sun May 14 21:26:29 2017 bongol_b
 */
 
 #include <string.h>
@@ -29,6 +29,7 @@ static t_cmd	g_cmds[] = {
   {"STOR", cmd_stor_execute},
   {"LIST", cmd_list_execute},
   {"SYST", cmd_syst_execute},
+  {"TYPE", cmd_type_execute},
   {NULL, NULL}
 };
 

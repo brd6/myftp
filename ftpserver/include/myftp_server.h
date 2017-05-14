@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Sun May 14 20:49:08 2017 bongol_b
+** Last update Sun May 14 21:33:33 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_
@@ -43,6 +43,12 @@ typedef enum	e_data_mode
     ACTIVE
   }		t_data_mode;
 
+typedef enum	e_data_type
+  {
+    ASCII,
+    BINARY
+  }		t_data_type;
+
 typedef struct	s_user
 {
   char		name[BUFF_SIZE];
@@ -69,6 +75,7 @@ typedef struct	s_config
   t_socket	server;
   t_socket	client;
   t_data_mode	data_mode;
+  t_data_type	data_type;
 
   int		sock_fd;
   int		client_sock_fd;
@@ -142,6 +149,7 @@ int		cmd_retr_execute(int sock_fd, const char **args);
 int		cmd_stor_execute(int sock_fd, const char **args);
 int		cmd_list_execute(int sock_fd, const char **args);
 int		cmd_syst_execute(int sock_fd, const char **args);
+int		cmd_type_execute(int sock_fd, const char **args);
 
 int		skip_space(const char *str);
 int		get_file_size(const char *file_name);
