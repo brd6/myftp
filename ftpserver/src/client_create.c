@@ -38,5 +38,5 @@ int		client_create(const char *addr, uint16_t port)
     return (0);
   init_sock_address(&sockaddr_in, addr, port);
   connected = connect(sock_fd, (t_sockaddr *)&sockaddr_in, sizeof(t_sockaddr));
-  return (connected ? sock_fd : -1);
+  return (connected != -1 ? sock_fd : -1);
 }

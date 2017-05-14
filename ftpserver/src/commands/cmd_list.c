@@ -75,8 +75,9 @@ int		cmd_list_execute(int sock_fd, const char **args)
   if (g_config.data_mode == _NONE)
     return (send_msg_response(sock_fd, "425", NULL), 0);
   PRINT_DEBUG(">>>>>>>>>>> current data mode: %d", g_config.data_mode);
-  if ((g_config.data_mode == PASSIVE && !setup_passive_mode(sock_fd)) &&
-      (!setup_active_mode(sock_fd)))
+  if (g_config.data_mode == PASSIVE && !setup_passive_mode(sock_fd))
+    return (send_msg_response(sock_fd, "425", NULL), 0);
+  else if (!setup_active_mode(sock_fd))
     return (send_msg_response(sock_fd, "425", NULL), 0);
   if ((cmd_result = execute_system_command("ls -l")) == NULL)
     return (send_msg_response(sock_fd, "552", NULL), 0);
