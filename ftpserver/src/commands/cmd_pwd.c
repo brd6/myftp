@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 11:46:46 2017 bongol_b
-** Last update Fri May 12 12:10:51 2017 bongol_b
+** Last update Sun May 14 02:42:08 2017 bongol_b
 */
 
 #include <unistd.h>
@@ -15,8 +15,7 @@
 
 static int	set_current_path()
 {
-  if (getcwd(g_config.current_path,sizeof(g_config.current_path)) == NULL)
-    return (0);
+  return (getcwd(g_config.current_path,sizeof(g_config.current_path)) != NULL);
 }
 
 int		cmd_pwd_execute(int sock_fd, const char **args)

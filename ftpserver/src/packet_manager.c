@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 14:55:49 2017 bongol_b
-** Last update Sat May 13 12:00:53 2017 bongol_b
+** Last update Sun May 14 02:40:43 2017 bongol_b
 */
 
 #include <unistd.h>
@@ -30,14 +30,12 @@ int		packet_send(int socket_fd, char *buff)
 int		packet_receive(int socket_fd, char *buff)
 {
   int		i;
-  int		size;
 
   PRINT_DEBUG("packet_receive");
   if ((i = read(socket_fd, buff, PACKET_BUFF_SIZE)) == -1)
     return (dprintf(2, ERR_READ), 0);
   PRINT_DEBUG("packet_receive - recv=%d rmnd=%d", i, PACKET_BUFF_SIZE - i);
   buff[i] = 0;
-
   if (strncmp(&buff[strlen(buff) - 2], "\r\n", 2) == 0)
     {
       buff[strlen(buff) - 1] = '\n';

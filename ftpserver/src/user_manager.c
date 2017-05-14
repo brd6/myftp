@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 22:05:55 2017 bongol_b
-** Last update Sat May 13 12:05:50 2017 bongol_b
+** Last update Sun May 14 02:43:05 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -14,10 +14,10 @@
 #include "debug.h"
 
 static t_user	g_users[] = {
-  {"anonymous", "", "/"},
-  {"brd6", "brd6", "/home/brd6"},
-  {"bongol_b", "123", "/home/bongol_b"},
-  {0, 0, 0}
+  {"anonymous", "", "/", 0},
+  {"brd6", "brd6", "/home/brd6", 0},
+  {"bongol_b", "123", "/home/bongol_b", 0},
+  {"\0", "\0", "\0", 0}
 };
 
 static int	get_user_index(const char *name)

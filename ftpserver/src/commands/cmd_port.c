@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:14:41 2017 bongol_b
-** Last update Sun May 14 02:31:35 2017 bongol_b
+** Last update Sun May 14 02:42:33 2017 bongol_b
 */
 
 #include <ctype.h>
@@ -33,7 +33,8 @@ static int	is_valid_addr_and_port_buff(const char *buff)
   comma_cpt = 0;
   while (buff && buff[i])
     {
-      if (!isdigit(buff[i]) && buff[i] != ',' || (dig_cpt > 3 && comma_cpt < 5))
+      if ((!isdigit(buff[i]) && buff[i] != ',') ||
+	  (dig_cpt > 3 && comma_cpt < 5))
 	return (0);
       if (buff[i] == ',')
 	{

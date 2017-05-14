@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 09:45:52 2017 bongol_b
-** Last update Fri May 12 09:50:57 2017 bongol_b
+** Last update Sun May 14 02:41:36 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -14,8 +14,6 @@
 
 int		cmd_quit_execute(int sock_fd, const char **args)
 {
-  int		is_auth;
-
   PRINT_DEBUG("cmd_quit_execute");
   g_config.should_stop = 1;
   send_msg_response(sock_fd, "221", NULL);

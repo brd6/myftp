@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 18:38:09 2017 bongol_b
-** Last update Sat May 13 11:21:26 2017 bongol_b
+** Last update Sun May 14 02:41:19 2017 bongol_b
 */
 
 #include <string.h>
@@ -49,10 +49,8 @@ static int	get_command_index(const char *cmd)
 void		get_debug_available_cmds(char *buff)
 {
   int		i;
-  int		j;
 
   i = 0;
-  j = 0;
   buff[0] = 0;
   while (g_cmds[i].command)
     {
