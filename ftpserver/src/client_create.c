@@ -18,9 +18,9 @@
 #include "errors.h"
 #include "debug.h"
 
-static void		init_sock_address(struct sockaddr_in *sock_address,
-					  const char *addr,
-					  uint16_t port)
+static void	init_sock_address(struct sockaddr_in *sock_address,
+				  const char *addr,
+				  uint16_t port)
 {
   memset(sock_address, 0, sizeof(*sock_address));
   sock_address->sin_family = AF_INET;

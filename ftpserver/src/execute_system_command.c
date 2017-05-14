@@ -20,21 +20,19 @@
 
 static int	try_execute_cmd(const char *cmd, char *tmp_result_path)
 {
-  //int		ret;
   char		buff_cmd[BUFF_SIZE];
 
   sprintf(tmp_result_path, "%s/myftp_buff_%d", "/tmp", getpid());
   sprintf(buff_cmd, "%s > %s", cmd, tmp_result_path);
   system(buff_cmd);
-    /* { */
-    /*   PRINT_ERROR("ret=%d", ret); */
-    /*   memset(tmp_result_path, 0, sizeof(tmp_result_path)); */
-    /*   memset(buff_cmd, 0, sizeof(buff_cmd)); */
-    /*   sprintf(tmp_result_path, "%s/myftp_buff_%d", ".", getpid()); */
-    /*   sprintf(buff_cmd, "%s > %s", cmd, tmp_result_path); */
-    /*   ret = system(buff_cmd); */
-    /* } */
-  //return (ret > -1);
+  if (get_file_size(tmp_result_path) == -1)
+    {
+      memset(tmp_result_path, 0, sizeof(*tmp_result_path));
+      memset(buff_cmd, 0, sizeof(buff_cmd));
+      sprintf(tmp_result_path, "myftp_buff_%d", getpid());
+      sprintf(buff_cmd, "%s > %s", cmd, tmp_result_path);
+      system(buff_cmd);
+    }
   return (1);
 }
 
