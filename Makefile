@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Mon May  8 16:38:17 2017 Berdrigue Bongolo-Beto
-## Last update Sun May 14 11:41:17 2017 bongol_b
+## Last update Sun May 14 14:19:00 2017 bongol_b
 ##
 
 CC		=	gcc
@@ -49,8 +49,11 @@ SRCS_SERVER	= 	$(DIR_SERVER)/src/main.c \
 			$(DIR_SERVER)/src/lib/my_str_split.c \
 			$(DIR_SERVER)/src/lib/my_free_wordtab.c \
 			$(DIR_SERVER)/src/lib/my_wordtab_count.c \
+			$(DIR_SERVER)/src/lib/my_str_replace.c \
 			$(DIR_SERVER)/src/service_authentification.c \
 			$(DIR_SERVER)/src/client_create.c \
+			$(DIR_SERVER)/src/execute_system_command.c \
+
 
 OBJS_SERVER	= 	$(SRCS_SERVER:.c=.o)
 

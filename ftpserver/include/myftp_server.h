@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Sun May 14 11:40:57 2017 bongol_b
+** Last update Sun May 14 14:18:15 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_
@@ -143,10 +143,17 @@ int		cmd_list_execute(int sock_fd, const char **args);
 int		cmd_syst_execute(int sock_fd, const char **args);
 
 int		skip_space(const char *str);
+int		get_file_size(const char *file_name);
 
 int		my_get_char_pos(const char *str, char c);
 char		**my_str_split(const char *str, const char *sp);
 int		my_wordtab_count(const char **tab);
 void		my_free_wordtab(char **tab);
+char		*my_str_replace(char *search,
+				char *replace,
+				char *subject,
+				int n);
+
+char		*execute_system_command(const char *cmd);
 
 #endif /* !MYFTP_SERVER_H_ */

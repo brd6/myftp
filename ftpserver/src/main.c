@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:35:16 2017 Berdrigue Bongolo-Beto
-** Last update Sat May 13 23:09:23 2017 bongol_b
+** Last update Sun May 14 13:03:28 2017 bongol_b
 */
 
 #include <netinet/in.h>
@@ -62,7 +62,7 @@ int		main(int ac, char **av)
 
   g_config.should_stop = 0;
   signal(SIGINT, sigint_handler);
-  signal(SIGCHLD, SIG_IGN);
+  //signal(SIGCHLD, SIG_IGN);
   signal(SIGTERM, sigint_handler);
   if (ac != 3)
     {

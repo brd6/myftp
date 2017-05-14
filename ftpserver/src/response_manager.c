@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 15:02:57 2017 bongol_b
-** Last update Sun May 14 02:40:59 2017 bongol_b
+** Last update Sun May 14 12:42:48 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -36,6 +36,7 @@ static t_msg	g_msg_types[] = {
   {"550", "Requested action not taken."},
   {"215", "UNIX system type."},
   {"425", "Can't open data connection."},
+  {"552", "Requested file action aborted."},
   {"\0", "\0"}
 };
 
