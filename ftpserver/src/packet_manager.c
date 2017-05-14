@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 14:55:49 2017 bongol_b
-** Last update Sun May 14 02:40:43 2017 bongol_b
+** Last update Sun May 14 20:53:05 2017 bongol_b
 */
 
 #include <unistd.h>
@@ -21,6 +21,16 @@ int		packet_send(int socket_fd, char *buff)
 
   PRINT_DEBUG("packet_send - buff='%s'", buff);
   size = strlen(buff);
+  if ((i = write(socket_fd, buff, size)) == -1)
+    return (dprintf(2, ERR_WRITE), 0);
+  PRINT_DEBUG("packet_send - send=%d rmnd=%d", i, size - i);
+  return (1);
+}
+
+int		packet_send_raw(int socket_fd, char *buff, int size)
+{
+  int		i;
+
   if ((i = write(socket_fd, buff, size)) == -1)
     return (dprintf(2, ERR_WRITE), 0);
   PRINT_DEBUG("packet_send - send=%d rmnd=%d", i, size - i);
