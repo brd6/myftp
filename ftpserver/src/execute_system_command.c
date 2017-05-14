@@ -20,7 +20,7 @@
 
 static int	try_execute_cmd(const char *cmd, char *tmp_result_path)
 {
-  int		ret;
+  //int		ret;
   char		buff_cmd[BUFF_SIZE];
 
   sprintf(tmp_result_path, "%s/myftp_buff_%d", "/tmp", getpid());

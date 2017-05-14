@@ -19,7 +19,7 @@
 
 static int	setup_passive_mode(int sock_fd)
 {
-  int		addr_in_len;
+  socklen_t	addr_in_len;
 
   addr_in_len = sizeof(g_config.client.addr_in);
   send_msg_response(sock_fd, "150", NULL);
@@ -66,7 +66,6 @@ static void	close_data_mode()
 
 int		cmd_list_execute(int sock_fd, const char **args)
 {
-  int		ret;
   char		*cmd_result;
   char		*tmp;
 
