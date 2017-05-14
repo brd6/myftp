@@ -68,6 +68,7 @@ int		cmd_list_execute(int sock_fd, const char **args)
 {
   char		*cmd_result;
   char		*tmp;
+  char		cmd[BUFF_SIZE];
 
   PRINT_DEBUG("cmd_list_execute");
   if (args[0] == NULL)
@@ -79,13 +80,14 @@ int		cmd_list_execute(int sock_fd, const char **args)
     return (send_msg_response(sock_fd, "425", NULL), 0);
   else if (!setup_active_mode(sock_fd))
     return (send_msg_response(sock_fd, "425", NULL), 0);
-  if ((cmd_result = execute_system_command("ls -l")) == NULL)
+  sprintf(cmd, "ls -l %s", args[1] != NULL ? args[1] : "");
+  if ((cmd_result = execute_system_command(cmd)) == NULL)
     return (send_msg_response(sock_fd, "552", NULL), 0);
   tmp = cmd_result;
   cmd_result = my_str_replace("\n", "\r\n", tmp, -1);
-  //free(tmp);
+  free(tmp);
   packet_send(g_config.client.sock_data, cmd_result);
-  //free(cmd_result);
+  free(cmd_result);
   send_msg_response(sock_fd, "226", NULL);
   close_data_mode();
   return (1);
