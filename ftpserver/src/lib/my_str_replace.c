@@ -35,6 +35,21 @@ int		count_occurence(char *search, char *subject, int n, int *cp2)
   return (cp);
 }
 
+static char	*my_strncpy(char *dest, char *src, int n)
+{
+  int		i;
+
+  i = 0;
+  while (src[i] && i < n)
+    {
+      dest[i] = src[i];
+      i = i + 1;
+    }
+  if (n >= i)
+    dest[i] = 0;
+  return (dest);
+}
+
 char		*my_str_replace(char *search,
 				char *replace,
 				char *subject,
@@ -53,13 +68,10 @@ char		*my_str_replace(char *search,
   str[0] = 0;
   old = subject;
   s = strstr(subject, search);
-  PRINT_ERROR("OKOKOKOKO: str=[%s]", str);
   while (s)
     {
-      strncpy(str + my_strlen(str), old, s - old);
-      PRINT_WARNING("OKOKOKOKO>>>>>>>>>>>>>>><");
+      my_strncpy(str + my_strlen(str), old, s - old);
       strcpy(str + my_strlen(str), replace);
-      PRINT_WARNING("2222222OKOKOKOKO>>>>>>>>>>>>>>><");
       old = s + my_strlen(search);
       s = strstr(s + my_strlen(search), search);
       if (n > 1 && cp == n)
