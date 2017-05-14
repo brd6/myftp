@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:12:03 2017 bongol_b
-** Last update Sun May 14 00:48:16 2017 bongol_b
+** Last update Sun May 14 01:07:48 2017 bongol_b
 */
 
 #include <netinet/in.h>
@@ -76,6 +76,7 @@ int		cmd_pasv_execute(int sock_fd, const char **args)
 	  g_config.server.port_data / 256,
 	  g_config.server.port_data % 256);
   sprintf(buff_send, "Entering Passive Mode (%s)", buff);
+  g_config.data_mode = PASSIVE;
   send_msg_response(sock_fd, "227", buff_send);
   return (1);
 }

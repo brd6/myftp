@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 08:25:08 2017 bongol_b
-** Last update Sat May 13 12:58:46 2017 bongol_b
+** Last update Sun May 14 01:09:51 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -69,6 +69,8 @@ int			server_run()
   reset_current_user();
   memset(g_config.current_path, 0, PATH_MAX);
   memset(&sock_len, 0, sizeof(sock_len));
+  g_config.data_mode = _NONE;
+  g_config.server.sock_data = -1;
   while (!g_config.should_stop)
     {
       PRINT_DEBUG("server waiting for a client connection...");
