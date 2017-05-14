@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:23:26 2017 bongol_b
-** Last update Sun May 14 21:46:33 2017 bongol_b
+** Last update Sun May 14 22:16:19 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -26,12 +26,8 @@ int		cmd_list_execute(int sock_fd, const char **args)
   PRINT_DEBUG("cmd_list_execute");
   if (args[0] == NULL)
     return (send_msg_response(sock_fd, "550", NULL), 0);
-  if (g_config.data_mode == _NONE)
-    return (send_msg_response(sock_fd, "425", NULL), 0);
-  if (g_config.data_mode == PASSIVE && !setup_passive_mode(sock_fd))
-    return (send_msg_response(sock_fd, "425", NULL), 0);
-  else if (!setup_active_mode(sock_fd))
-    return (send_msg_response(sock_fd, "425", NULL), 0);
+  if (setup_data_mode(sock_fd) == 0)
+    return (0);
   sprintf(cmd, "ls -l %s", args[1] != NULL ? args[1] : "");
   if ((cmd_result = execute_system_command(cmd)) == NULL)
     return (send_msg_response(sock_fd, "552", NULL), 0);

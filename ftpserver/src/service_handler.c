@@ -5,26 +5,13 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 23:42:04 2017 bongol_b
-** Last update Sun May 14 00:15:47 2017 bongol_b
+** Last update Sun May 14 22:35:26 2017 bongol_b
 */
 
 #include <stdio.h>
 #include "myftp_server.h"
 #include "errors.h"
 #include "debug.h"
-
-static char	**get_packet_args(int sock_fd)
-{
-  char		buff[PACKET_BUFF_SIZE];
-  char		**args;
-
-  args = NULL;
-  if ((packet_receive(sock_fd, buff) == 0) ||
-      ((args = my_str_split(buff, WORD_SEPS)) == NULL ||
-       my_wordtab_count((const char **)args) < 1))
-    return (my_free_wordtab(args), NULL);
-  return (args);
-}
 
 static void	set_current_auth_state(const char *command, t_auth_state *state)
 {
@@ -44,7 +31,7 @@ static int	service_loop_dispatch(int sock_fd, t_auth_state *auth_state)
 	      g_config.current_user.name,
 	      g_config.current_user.home_dir,
 	      g_config.current_user.is_auth);
-  if ((args = get_packet_args(sock_fd)) == NULL)
+  if ((args = parse_packet_args(sock_fd)) == NULL)
     return (0);
   if (*auth_state != SUCCESS && !is_auth_cmd_allowed(args[0]))
     send_msg_response(sock_fd, "530", NULL);

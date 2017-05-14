@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Mon May  8 16:38:17 2017 Berdrigue Bongolo-Beto
-## Last update Sun May 14 21:46:15 2017 bongol_b
+## Last update Sun May 14 22:36:24 2017 bongol_b
 ##
 
 CC		=	gcc
@@ -34,6 +34,13 @@ SRCS_SERVER_CMD	=	$(DIR_SERVER)/src/command_manager.c \
 			$(DIR_SERVER)/src/commands/cmd_syst.c \
 			$(DIR_SERVER)/src/commands/cmd_type.c \
 
+SRCS_MY_LIB	=	$(DIR_SERVER)/src/lib/my_wordtab_to_str.c \
+			$(DIR_SERVER)/src/lib/my_get_char_pos.c \
+			$(DIR_SERVER)/src/lib/my_str_split.c \
+			$(DIR_SERVER)/src/lib/my_free_wordtab.c \
+			$(DIR_SERVER)/src/lib/my_wordtab_count.c \
+			$(DIR_SERVER)/src/lib/my_str_replace.c \
+
 
 SRCS_SERVER	= 	$(DIR_SERVER)/src/main.c \
 			$(DIR_SERVER)/src/myftp_server.c \
@@ -46,15 +53,12 @@ SRCS_SERVER	= 	$(DIR_SERVER)/src/main.c \
 			$(DIR_SERVER)/src/response_manager.c \
 			$(SRCS_SERVER_CMD) \
 			$(DIR_SERVER)/src/utils.c \
-			$(DIR_SERVER)/src/lib/my_get_char_pos.c \
-			$(DIR_SERVER)/src/lib/my_str_split.c \
-			$(DIR_SERVER)/src/lib/my_free_wordtab.c \
-			$(DIR_SERVER)/src/lib/my_wordtab_count.c \
-			$(DIR_SERVER)/src/lib/my_str_replace.c \
+			$(SRCS_MY_LIB) \
 			$(DIR_SERVER)/src/service_authentification.c \
 			$(DIR_SERVER)/src/client_create.c \
 			$(DIR_SERVER)/src/execute_system_command.c \
 			$(DIR_SERVER)/src/setup_data_mode.c \
+			$(DIR_SERVER)/src/parse_packet_args.c \
 
 
 OBJS_SERVER	= 	$(SRCS_SERVER:.c=.o)

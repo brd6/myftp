@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun May 14 21:44:26 2017 bongol_b
-** Last update Sun May 14 21:44:57 2017 bongol_b
+** Last update Sun May 14 22:20:15 2017 bongol_b
 */
 
 #include <fcntl.h>
@@ -61,4 +61,15 @@ void		close_data_mode()
       close(g_config.server.sock_data);
       g_config.server.sock_data = -1;
     }
+}
+
+int		setup_data_mode(int sock_fd)
+{
+  if (g_config.data_mode == _NONE)
+    return (send_msg_response(sock_fd, "425", NULL), 0);
+  if (g_config.data_mode == PASSIVE && !setup_passive_mode(sock_fd))
+    return (send_msg_response(sock_fd, "425", NULL), 0);
+  else if (g_config.data_mode == ACTIVE && !setup_active_mode(sock_fd))
+    return (send_msg_response(sock_fd, "425", NULL), 0);
+  return (1);
 }
