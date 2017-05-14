@@ -5,9 +5,10 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:21:38 2017 bongol_b
-** Last update Sun May 14 21:25:45 2017 bongol_b
+** Last update Sun May 14 21:56:40 2017 bongol_b
 */
 
+#include <stdlib.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdio.h>
@@ -16,54 +17,33 @@
 #include "myftp_server.h"
 #include "debug.h"
 
-static int	setup_passive_mode(int sock_fd)
+static int	send_file_ascii(int sock_fd, const char *file_name)
 {
-  socklen_t	addr_in_len;
+  int		fd;
+  int		res;
+  char		buff[PACKET_BUFF_SIZE + 1];
+  char		*clean_content;
 
-  addr_in_len = sizeof(g_config.client.addr_in);
-  send_msg_response(sock_fd, "150", NULL);
-  PRINT_DEBUG("passive mode wait connection...");
-  g_config.client.sock_data = accept(g_config.server.sock_data,
-				     (t_sockaddr *)&g_config.client.addr_in,
-				     &addr_in_len);
-  if (g_config.client.sock_data == -1)
+  if ((fd = open(file_name, O_RDONLY)) == -1)
+    return (0);
+  while ((res = read(fd, buff, PACKET_BUFF_SIZE)) > 0)
     {
-      PRINT_ERROR("[passive] client data sock failed");
-      return (0);
+      buff[res] = 0;
+      clean_content = my_str_replace("\n", "\r\n", buff, -1);
+      if (packet_send_raw(sock_fd, clean_content, res) == 0)
+	{
+	  PRINT_ERROR("can't send raw data. Connection out");
+	  free(clean_content);
+	  close(fd);
+	  return (0);
+	}
+      free(clean_content);
     }
-  PRINT_DEBUG("[passive] client data sock success !");
+  close(fd);
   return (1);
 }
 
-static int	setup_active_mode(int sock_fd)
-{
-  send_msg_response(sock_fd, "150", NULL);
-  PRINT_DEBUG("Connection to %s at %d in progress..",
-	      g_config.client.ipaddr,
-	      g_config.client.port_data);
-  g_config.client.sock_data = client_create(g_config.client.ipaddr,
-					    g_config.client.port_data);
-  if (g_config.client.sock_data == -1)
-    {
-      PRINT_ERROR("[active] client data sock failed");
-      return (0);
-    }
-  PRINT_DEBUG("[active] client data sock success !");
-  return (1);
-}
-
-static void	close_data_mode()
-{
-  close(g_config.client.sock_data);
-  g_config.client.sock_data = -1;
-  if (g_config.data_mode == PASSIVE)
-    {
-      close(g_config.server.sock_data);
-      g_config.server.sock_data = -1;
-    }
-}
-
-static int	send_file(int sock_fd, const char *file_name)
+static int	send_file_binary(int sock_fd, const char *file_name)
 {
   int		fd;
   int		res;
@@ -76,10 +56,19 @@ static int	send_file(int sock_fd, const char *file_name)
       if (packet_send_raw(sock_fd, buff, res) == 0)
 	{
 	  PRINT_ERROR("can't send raw data. Connection out");
+	  close(fd);
 	  return (0);
 	}
     }
+  close(fd);
   return (1);
+}
+
+static int	send_file(int sock_fd, const char *file_name)
+{
+  if (g_config.data_type == ASCII)
+    return (send_file_ascii(sock_fd, file_name));
+  return (send_file_binary(sock_fd, file_name));
 }
 
 int		cmd_retr_execute(int sock_fd, const char **args)
@@ -92,8 +81,6 @@ int		cmd_retr_execute(int sock_fd, const char **args)
     return (send_msg_response(sock_fd, "425", NULL), 0);
   else if (!setup_active_mode(sock_fd))
     return (send_msg_response(sock_fd, "425", NULL), 0);
-  //char *bff = execute_system_command("cat 5ko.dat");
-  //PRINT_ERROR("bff='%s'", bff);
   send_file(g_config.client.sock_data, args[1]);
   send_msg_response(sock_fd, "226", NULL);
   close_data_mode();
