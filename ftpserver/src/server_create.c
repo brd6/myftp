@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 11:04:14 2017 bongol_b
-** Last update Sat May 13 23:24:14 2017 bongol_b
+** Last update Sun May 14 11:23:23 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -38,6 +38,17 @@ static int		set_reuse_addr_mode(int sock_fd)
   return (ret != -1);
 }
 
+int		init_sock_addr(int sock_fd,
+			       struct sockaddr_in *sock_addr)
+{
+  socklen_t	len;
+
+  len = sizeof(struct sockaddr_in);
+  if (getsockname(sock_fd, (struct sockaddr *) sock_addr, &len) < 0)
+    return (0);
+  return (1);
+}
+
 int			server_create(unsigned int addr,
 				      unsigned short port,
 				      int reuse_addr)
@@ -64,15 +75,4 @@ int			server_create(unsigned int addr,
       return (dprintf(2, ERR_INIT_SOCKET_LISTEN), 0);
     }
   return (sock_fd);
-}
-
-int		init_sock_addr(int sock_fd,
-			       struct sockaddr_in *sock_addr)
-{
-  socklen_t	len;
-
-  len = sizeof(struct sockaddr_in);
-  if (getsockname(sock_fd, (struct sockaddr *) sock_addr, &len) < 0)
-    return (0);
-  return (1);
 }

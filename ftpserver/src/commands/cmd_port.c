@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:14:41 2017 bongol_b
-** Last update Sun May 14 10:41:31 2017 bongol_b
+** Last update Sun May 14 11:18:24 2017 bongol_b
 */
 
 #include <ctype.h>
@@ -76,21 +76,19 @@ static int	parse_address_and_port(const char **args,
 
 int		cmd_port_execute(int sock_fd, const char **args)
 {
-  uint16_t port;
-
   if (args[0] == NULL || args[1] == NULL)
     return (send_msg_response(sock_fd, "550", NULL), 0);
-  if (g_config.server.sock_data != -1)
+  if (g_config.client.sock_data != -1)
     {
-      close (g_config.server.sock_data);
-      g_config.server.sock_data = -1;
+      close (g_config.client.sock_data);
+      g_config.client.sock_data = -1;
     }
-  if (parse_address_and_port(args, g_config.server.ipaddr,
-			     &g_config.server.port_data) == 0)
+  if (parse_address_and_port(args, g_config.client.ipaddr,
+			     &g_config.client.port_data) == 0)
     return (send_msg_response(sock_fd, "501", NULL), 0);
   PRINT_DEBUG("cmd_port_execute: addr=%s,port=%u",
-	      g_config.server.ipaddr,
-	      g_config.server.port_data);
+	      g_config.client.ipaddr,
+	      g_config.client.port_data);
   g_config.data_mode = ACTIVE;
   send_msg_response(sock_fd, "200", NULL);
   return (1);

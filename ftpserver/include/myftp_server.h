@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Sun May 14 10:38:26 2017 bongol_b
+** Last update Sun May 14 11:40:57 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_
@@ -52,6 +52,7 @@ typedef struct	s_user
 }		t_user;
 
 typedef struct sockaddr_in	t_sockaddr_in;
+typedef struct sockaddr		t_sockaddr;
 
 typedef struct	s_socket
 {
@@ -97,6 +98,8 @@ int		server_create(unsigned int addr,
 			      unsigned short port,
 			      int reuse_addr);
 int		server_run();
+
+int		client_create(const char *addr, uint16_t port);
 
 void		debug_socket_address(int sock_fd);
 void		debug_socket_distance_address(int sock_fd);
