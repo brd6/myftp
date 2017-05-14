@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Sat May 13 23:19:22 2017 bongol_b
+** Last update Sun May 14 10:38:26 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_
@@ -60,6 +60,7 @@ typedef struct	s_socket
   int		sock_data;
   uint16_t	port_data;
   t_sockaddr_in	addr_in;
+  char		ipaddr[BUFF_SIZE];
 }		t_socket;
 
 typedef struct	s_config
