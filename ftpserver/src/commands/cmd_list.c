@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:23:26 2017 bongol_b
-** Last update Sun May 14 14:26:06 2017 bongol_b
+** Last update Sun May 14 14:42:55 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -82,10 +82,10 @@ int		cmd_list_execute(int sock_fd, const char **args)
   if ((cmd_result = execute_system_command("ls -l")) == NULL)
     return (send_msg_response(sock_fd, "552", NULL), 0);
   tmp = cmd_result;
-  cmd_result = my_str_replace("\n", "\r\n", cmd_result, -1);
-  free(tmp);
+  cmd_result = my_str_replace("\n", "\r\n", tmp, -1);
+  //free(tmp);
   packet_send(g_config.client.sock_data, cmd_result);
-  free(cmd_result);
+  //free(cmd_result);
   send_msg_response(sock_fd, "226", NULL);
   close_data_mode();
   return (1);

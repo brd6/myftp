@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 11:04:14 2017 bongol_b
-** Last update Sun May 14 11:23:23 2017 bongol_b
+** Last update Sun May 14 14:37:58 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -34,6 +34,7 @@ static int		set_reuse_addr_mode(int sock_fd)
   int			optval;
   int			ret;
 
+  optval = 1;
   ret = setsockopt(sock_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
   return (ret != -1);
 }
