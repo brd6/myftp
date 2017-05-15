@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Sun May 14 22:36:04 2017 bongol_b
+** Last update Mon May 15 23:15:52 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_
@@ -167,8 +167,8 @@ char		*my_wordtab_to_str(const char **args, char sp);
 char		*execute_system_command(const char *cmd);
 
 int		setup_data_mode(int sock_fd);
-int		setup_passive_mode(int sock_fd);
-int		setup_active_mode(int sock_fd);
+int		setup_passive_mode();
+int		setup_active_mode();
 void		close_data_mode();
 
 char		**parse_packet_args(int sock_fd);

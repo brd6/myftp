@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Mon May  8 16:38:17 2017 Berdrigue Bongolo-Beto
-## Last update Sun May 14 22:36:24 2017 bongol_b
+## Last update Mon May 15 23:16:54 2017 bongol_b
 ##
 
 CC		=	gcc
@@ -63,40 +63,21 @@ SRCS_SERVER	= 	$(DIR_SERVER)/src/main.c \
 
 OBJS_SERVER	= 	$(SRCS_SERVER:.c=.o)
 
-DIR_CLIENT	=	ftpclient
-NAME_CLIENT	=	client
-
-SRCS_CLIENT	= 	$(DIR_CLIENT)/src/main.c \
-
-OBJS_CLIENT	= 	$(SRCS_CLIENT:.c=.o)
-
-#CFLAGS 		+= 	$(RELEASE_CFLAGS)
-
-#CFLAGS		+= 	-I./$(DIR_SERVER)/include/
-#CFLAGS 		+= 	-I./$(DIR_CLIENT)/include/
-
-
 all: CFLAGS += 	$(RELEASE_CFLAGS)
-all: $(NAME_SERVER) $(NAME_CLIENT)
+all: $(NAME_SERVER)
 
 $(NAME_SERVER): CFLAGS += -I./$(DIR_SERVER)/include/
 $(NAME_SERVER): $(OBJS_SERVER)
 	$(CC) $(OBJS_SERVER) -o $(NAME_SERVER)
-
-$(NAME_CLIENT): CFLAGS += -I./$(DIR_CLIENT)/include/
-$(NAME_CLIENT): $(OBJS_CLIENT)
-	$(CC) $(OBJS_CLIENT) -o $(NAME_CLIENT)
 
 debug: CFLAGS += $(DEBUG_CFLAGS)
 debug: $(NAME_SERVER)
 
 clean:
 	$(RM) $(OBJS_SERVER)
-	$(RM) $(OBJS_CLIENT)
 
 fclean: clean
 	$(RM) $(NAME_SERVER)
-	$(RM) $(NAME_CLIENT)
 
 re: fclean all
 

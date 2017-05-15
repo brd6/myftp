@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:23:00 2017 bongol_b
-** Last update Mon May 15 22:53:08 2017 bongol_b
+** Last update Mon May 15 23:13:27 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -73,6 +73,7 @@ int		cmd_stor_execute(int sock_fd, const char **args)
 {
   if (args[0] == NULL || args[1] == NULL)
     return (send_msg_response(sock_fd, "550", NULL), 0);
+  send_msg_response(sock_fd, "150", NULL);
   if (setup_data_mode(sock_fd) == 0)
     return (0);
   if (!get_file(g_config.client.sock_data, args[1]))

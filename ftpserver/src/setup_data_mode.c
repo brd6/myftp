@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun May 14 21:44:26 2017 bongol_b
-** Last update Mon May 15 23:06:34 2017 bongol_b
+** Last update Mon May 15 23:15:17 2017 bongol_b
 */
 
 #include <fcntl.h>
@@ -16,7 +16,7 @@
 #include "myftp_server.h"
 #include "debug.h"
 
-int		setup_passive_mode(int sock_fd)
+int		setup_passive_mode()
 {
   socklen_t	addr_in_len;
 
@@ -34,7 +34,7 @@ int		setup_passive_mode(int sock_fd)
   return (1);
 }
 
-int		setup_active_mode(int sock_fd)
+int		setup_active_mode()
 {
   PRINT_DEBUG("Connection to %s at %d in progress..",
 	      g_config.client.ipaddr,
@@ -66,9 +66,9 @@ int		setup_data_mode(int sock_fd)
 {
   if (g_config.data_mode == _NONE)
     return (send_msg_response(sock_fd, "425", NULL), 0);
-  if (g_config.data_mode == PASSIVE && !setup_passive_mode(sock_fd))
+  if (g_config.data_mode == PASSIVE && !setup_passive_mode())
     return (send_msg_response(sock_fd, "425", NULL), 0);
-  else if (g_config.data_mode == ACTIVE && !setup_active_mode(sock_fd))
+  else if (g_config.data_mode == ACTIVE && !setup_active_mode())
     return (send_msg_response(sock_fd, "425", NULL), 0);
   return (1);
 }
