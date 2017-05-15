@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:23:00 2017 bongol_b
-** Last update Mon May 15 10:59:42 2017 bongol_b
+** Last update Mon May 15 22:53:08 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -25,7 +25,7 @@ static int	get_file_ascii(int sock_fd, const char *file_name)
   char		*clean_content;
 
   if ((fd = creat(file_name, 0666)) == -1) // O_WRONLY | O_EXCL | O_CREAT
-    return (0);
+    return (close_data_mode(), 0);
   while ((res = read(sock_fd, buff, PACKET_BUFF_SIZE)) > 0)
     {
       buff[res] = 0;
@@ -33,7 +33,8 @@ static int	get_file_ascii(int sock_fd, const char *file_name)
       if (write(fd, buff, res) < 0)
 	{
 	  free(clean_content);
-	  return (close(fd), 0);
+	  close(fd);
+	  return (close_data_mode(), 0);
 	}
       free(clean_content);
     }
@@ -48,11 +49,14 @@ static int	get_file_binary(int sock_fd, const char *file_name)
   char		buff[PACKET_BUFF_SIZE + 1];
 
   if ((fd = creat(file_name, 0666)) == -1) // O_WRONLY | O_EXCL | O_CREAT
-    return (0);
+    return (close_data_mode(), 0);
   while ((res = read(sock_fd, buff, PACKET_BUFF_SIZE)) > 0)
     {
       if (write(fd, buff, res) < 0)
-	return (close(fd), 0);
+	{
+	  close(fd);
+	  return (close_data_mode(), 0);
+	}
     }
   close(fd);
   return (1);
@@ -72,7 +76,7 @@ int		cmd_stor_execute(int sock_fd, const char **args)
   if (setup_data_mode(sock_fd) == 0)
     return (0);
   if (!get_file(g_config.client.sock_data, args[1]))
-    return (send_msg_response(sock_fd, "500", NULL), 0);
+    return (send_msg_response(sock_fd, "550", NULL), 0);
   send_msg_response(sock_fd, "226", NULL);
   close_data_mode();
   return (1);

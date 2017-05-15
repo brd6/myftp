@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:21:38 2017 bongol_b
-** Last update Mon May 15 10:33:29 2017 bongol_b
+** Last update Mon May 15 23:06:22 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -25,7 +25,7 @@ static int	send_file_ascii(int sock_fd, const char *file_name)
   char		*clean_content;
 
   if ((fd = open(file_name, O_RDONLY)) == -1)
-    return (0);
+    return (close_data_mode(), 0);
   while ((res = read(fd, buff, PACKET_BUFF_SIZE)) > 0)
     {
       buff[res] = 0;
@@ -35,7 +35,7 @@ static int	send_file_ascii(int sock_fd, const char *file_name)
 	  PRINT_ERROR("can't send raw data. Connection out");
 	  free(clean_content);
 	  close(fd);
-	  return (0);
+	  return (close_data_mode(), 0);
 	}
       free(clean_content);
     }
@@ -50,14 +50,14 @@ static int	send_file_binary(int sock_fd, const char *file_name)
   char		buff[PACKET_BUFF_SIZE + 1];
 
   if ((fd = open(file_name, O_RDONLY)) == -1)
-    return (0);
+    return (close_data_mode(), 0);
   while ((res = read(fd, buff, PACKET_BUFF_SIZE)) > 0)
     {
       if (packet_send_raw(sock_fd, buff, res) == 0)
 	{
 	  PRINT_ERROR("can't send raw data. Connection out");
 	  close(fd);
-	  return (0);
+	  return (close_data_mode(), 0);
 	}
     }
   close(fd);
@@ -75,10 +75,12 @@ int		cmd_retr_execute(int sock_fd, const char **args)
 {
   if (args[0] == NULL || args[1] == NULL)
     return (send_msg_response(sock_fd, "550", NULL), 0);
+  if (get_file_size(args[1]) > -1)
+    send_msg_response(sock_fd, "150", NULL);
   if (setup_data_mode(sock_fd) == 0)
     return (0);
   if (!send_file(g_config.client.sock_data, args[1]))
-    return (send_msg_response(sock_fd, "500", NULL), 0);
+    return (send_msg_response(sock_fd, "550", NULL), 0);
   send_msg_response(sock_fd, "226", NULL);
   close_data_mode();
   return (1);

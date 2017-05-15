@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun May 14 21:44:26 2017 bongol_b
-** Last update Sun May 14 22:20:15 2017 bongol_b
+** Last update Mon May 15 23:06:34 2017 bongol_b
 */
 
 #include <fcntl.h>
@@ -21,7 +21,6 @@ int		setup_passive_mode(int sock_fd)
   socklen_t	addr_in_len;
 
   addr_in_len = sizeof(g_config.client.addr_in);
-  send_msg_response(sock_fd, "150", NULL);
   PRINT_DEBUG("passive mode wait connection...");
   g_config.client.sock_data = accept(g_config.server.sock_data,
 				     (t_sockaddr *)&g_config.client.addr_in,
@@ -37,7 +36,6 @@ int		setup_passive_mode(int sock_fd)
 
 int		setup_active_mode(int sock_fd)
 {
-  send_msg_response(sock_fd, "150", NULL);
   PRINT_DEBUG("Connection to %s at %d in progress..",
 	      g_config.client.ipaddr,
 	      g_config.client.port_data);
@@ -54,9 +52,10 @@ int		setup_active_mode(int sock_fd)
 
 void		close_data_mode()
 {
-  close(g_config.client.sock_data);
+  if (g_config.client.sock_data != -1)
+    close(g_config.client.sock_data);
   g_config.client.sock_data = -1;
-  if (g_config.data_mode == PASSIVE)
+  if (g_config.data_mode == PASSIVE && g_config.server.sock_data != -1)
     {
       close(g_config.server.sock_data);
       g_config.server.sock_data = -1;
