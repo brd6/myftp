@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 15:02:57 2017 bongol_b
-** Last update Sun May 14 12:42:48 2017 bongol_b
+** Last update Mon May 15 23:28:58 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -19,6 +19,7 @@ static t_msg	g_msg_types[] = {
   {"150", "File status okay; about to open data connection."},
   {"200", "Command okay."},
   {"214", "Help message."},
+  {"213", "File status."},
   {"220", "Service ready for new user."},
   {"221", "Service closing control connection."},
   {"226", "Closing data connection."},

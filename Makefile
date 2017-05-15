@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Mon May  8 16:38:17 2017 Berdrigue Bongolo-Beto
-## Last update Mon May 15 23:16:54 2017 bongol_b
+## Last update Mon May 15 23:30:34 2017 bongol_b
 ##
 
 CC		=	gcc
@@ -33,6 +33,7 @@ SRCS_SERVER_CMD	=	$(DIR_SERVER)/src/command_manager.c \
 			$(DIR_SERVER)/src/commands/cmd_list.c \
 			$(DIR_SERVER)/src/commands/cmd_syst.c \
 			$(DIR_SERVER)/src/commands/cmd_type.c \
+			$(DIR_SERVER)/src/commands/cmd_size.c \
 
 SRCS_MY_LIB	=	$(DIR_SERVER)/src/lib/my_wordtab_to_str.c \
 			$(DIR_SERVER)/src/lib/my_get_char_pos.c \
