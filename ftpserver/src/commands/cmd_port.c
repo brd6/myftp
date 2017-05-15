@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:14:41 2017 bongol_b
-** Last update Sun May 14 22:08:53 2017 bongol_b
+** Last update Mon May 15 10:48:45 2017 bongol_b
 */
 
 #include <ctype.h>
@@ -91,6 +91,5 @@ int		cmd_port_execute(int sock_fd, const char **args)
 	      g_config.client.port_data);
   g_config.data_mode = ACTIVE;
   send_msg_response(sock_fd, "200", NULL);
-  PRINT_WARNING("data mode : ACTIVE");
   return (1);
 }

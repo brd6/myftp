@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:23:00 2017 bongol_b
-** Last update Sun May 14 22:31:56 2017 bongol_b
+** Last update Mon May 15 10:59:42 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -17,25 +17,23 @@
 #include "myftp_server.h"
 #include "debug.h"
 
-static int	send_file_ascii(int sock_fd, const char *file_name)
+static int	get_file_ascii(int sock_fd, const char *file_name)
 {
   int		fd;
   int		res;
   char		buff[PACKET_BUFF_SIZE + 1];
   char		*clean_content;
 
-  if ((fd = open(file_name, O_RDONLY)) == -1)
+  if ((fd = creat(file_name, 0666)) == -1) // O_WRONLY | O_EXCL | O_CREAT
     return (0);
-  while ((res = read(fd, buff, PACKET_BUFF_SIZE)) > 0)
+  while ((res = read(sock_fd, buff, PACKET_BUFF_SIZE)) > 0)
     {
       buff[res] = 0;
       clean_content = my_str_replace("\n", "\r\n", buff, -1);
-      if (packet_send_raw(sock_fd, clean_content, res) == 0)
+      if (write(fd, buff, res) < 0)
 	{
-	  PRINT_ERROR("can't send raw data. Connection out");
 	  free(clean_content);
-	  close(fd);
-	  return (0);
+	  return (close(fd), 0);
 	}
       free(clean_content);
     }
@@ -43,32 +41,28 @@ static int	send_file_ascii(int sock_fd, const char *file_name)
   return (1);
 }
 
-static int	send_file_binary(int sock_fd, const char *file_name)
+static int	get_file_binary(int sock_fd, const char *file_name)
 {
   int		fd;
   int		res;
   char		buff[PACKET_BUFF_SIZE + 1];
 
-  if ((fd = open(file_name, O_RDONLY)) == -1)
+  if ((fd = creat(file_name, 0666)) == -1) // O_WRONLY | O_EXCL | O_CREAT
     return (0);
-  while ((res = read(fd, buff, PACKET_BUFF_SIZE)) > 0)
+  while ((res = read(sock_fd, buff, PACKET_BUFF_SIZE)) > 0)
     {
-      if (packet_send_raw(sock_fd, buff, res) == 0)
-	{
-	  PRINT_ERROR("can't send raw data. Connection out");
-	  close(fd);
-	  return (0);
-	}
+      if (write(fd, buff, res) < 0)
+	return (close(fd), 0);
     }
   close(fd);
   return (1);
 }
 
-static int	send_file(int sock_fd, const char *file_name)
+static int	get_file(int sock_fd, const char *file_name)
 {
   if (g_config.data_type == ASCII)
-    return (send_file_ascii(sock_fd, file_name));
-  return (send_file_binary(sock_fd, file_name));
+    return (get_file_ascii(sock_fd, file_name));
+  return (get_file_binary(sock_fd, file_name));
 }
 
 int		cmd_stor_execute(int sock_fd, const char **args)
@@ -77,7 +71,8 @@ int		cmd_stor_execute(int sock_fd, const char **args)
     return (send_msg_response(sock_fd, "550", NULL), 0);
   if (setup_data_mode(sock_fd) == 0)
     return (0);
-  send_file(g_config.client.sock_data, args[1]);
+  if (!get_file(g_config.client.sock_data, args[1]))
+    return (send_msg_response(sock_fd, "500", NULL), 0);
   send_msg_response(sock_fd, "226", NULL);
   close_data_mode();
   return (1);

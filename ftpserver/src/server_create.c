@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 11:04:14 2017 bongol_b
-** Last update Sun May 14 14:37:58 2017 bongol_b
+** Last update Mon May 15 11:08:06 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -61,19 +61,19 @@ int			server_create(unsigned int addr,
   sock_fd = -1;
   init_sock_address(&sock_address, addr, port);
   if ((sock_fd = socket(sock_address.sin_family, SOCK_STREAM, 0)) == -1)
-    return (dprintf(2, ERR_INIT_SOCKET), 0);
+    return (dprintf(2, ERR_INIT_SOCKET), -1);
   if (reuse_addr && !set_reuse_addr_mode(sock_fd))
-    return (dprintf(2, ERR_SOCKET_OPT), 0);
+    return (dprintf(2, ERR_SOCKET_OPT), -1);
   ret = bind(sock_fd, (struct sockaddr *)&sock_address, sizeof(sock_address));
   if (ret == -1)
     {
       close(sock_fd);
-      return (dprintf(2, ERR_INIT_SOCKET_BIND), 0);
+      return (dprintf(2, ERR_INIT_SOCKET_BIND), -1);
     }
   if (listen(sock_fd, SERVER_LISTEN_BACKLOG) == -1)
     {
       close(sock_fd);
-      return (dprintf(2, ERR_INIT_SOCKET_LISTEN), 0);
+      return (dprintf(2, ERR_INIT_SOCKET_LISTEN), -1);
     }
   return (sock_fd);
 }

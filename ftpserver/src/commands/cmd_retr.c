@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:21:38 2017 bongol_b
-** Last update Sun May 14 22:18:27 2017 bongol_b
+** Last update Mon May 15 10:33:29 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -77,7 +77,8 @@ int		cmd_retr_execute(int sock_fd, const char **args)
     return (send_msg_response(sock_fd, "550", NULL), 0);
   if (setup_data_mode(sock_fd) == 0)
     return (0);
-  send_file(g_config.client.sock_data, args[1]);
+  if (!send_file(g_config.client.sock_data, args[1]))
+    return (send_msg_response(sock_fd, "500", NULL), 0);
   send_msg_response(sock_fd, "226", NULL);
   close_data_mode();
   return (1);
