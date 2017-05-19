@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Mon May 15 23:30:20 2017 bongol_b
+** Last update Fri May 19 13:38:39 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_

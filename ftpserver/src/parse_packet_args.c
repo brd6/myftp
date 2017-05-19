@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun May 14 22:34:57 2017 bongol_b
-** Last update Sun May 14 22:50:30 2017 bongol_b
+** Last update Fri May 19 13:40:28 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -55,8 +55,12 @@ char		**parse_packet_args(int sock_fd)
   char		buff[PACKET_BUFF_SIZE];
   char		**args;
 
-  if ((packet_receive(sock_fd, buff) == 0) ||
-      ((args = parse_args(buff)) == NULL ||
+  args = NULL;
+  if (packet_receive(sock_fd, buff) == 0)
+    return (NULL);
+  if (strlen(buff) < 1)
+    return (NULL);
+  if (((args = parse_args(buff)) == NULL ||
        my_wordtab_count((const char **)args) < 1))
     return (my_free_wordtab(args), NULL);
   return (args);
