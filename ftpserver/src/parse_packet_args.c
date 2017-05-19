@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun May 14 22:34:57 2017 bongol_b
-** Last update Fri May 19 13:40:28 2017 bongol_b
+** Last update Fri May 19 17:47:34 2017 bongol_b
 */
 
 #include <stdlib.h>
@@ -13,6 +13,7 @@
 #include "myftp_server.h"
 #include "errors.h"
 #include "debug.h"
+#include "get_next_line.h"
 
 static void	init_vars(int *i, int *j, int *k)
 {
@@ -52,12 +53,18 @@ static char	**parse_args(const char *str)
 
 char		**parse_packet_args(int sock_fd)
 {
-  char		buff[PACKET_BUFF_SIZE];
+  char		*buff;
+  //char		buff[PACKET_BUFF_SIZE];
   char		**args;
 
   args = NULL;
-  if (packet_receive(sock_fd, buff) == 0)
-    return (NULL);
+  if ((buff = get_next_line(sock_fd)) == NULL)
+    {
+      g_config.should_stop = 1;
+      return (NULL);
+    }
+  /* if (packet_receive(sock_fd, buff) == 0) */
+  /*   return (NULL); */
   if (strlen(buff) < 1)
     return (NULL);
   if (((args = parse_args(buff)) == NULL ||

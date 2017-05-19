@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Mon May  8 16:38:17 2017 Berdrigue Bongolo-Beto
-## Last update Mon May 15 23:30:34 2017 bongol_b
+## Last update Fri May 19 17:36:29 2017 bongol_b
 ##
 
 CC		=	gcc
@@ -41,6 +41,7 @@ SRCS_MY_LIB	=	$(DIR_SERVER)/src/lib/my_wordtab_to_str.c \
 			$(DIR_SERVER)/src/lib/my_free_wordtab.c \
 			$(DIR_SERVER)/src/lib/my_wordtab_count.c \
 			$(DIR_SERVER)/src/lib/my_str_replace.c \
+			$(DIR_SERVER)/src/lib/get_next_line.c \
 
 
 SRCS_SERVER	= 	$(DIR_SERVER)/src/main.c \
