@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 22:05:55 2017 bongol_b
-** Last update Sun May 14 02:43:05 2017 bongol_b
+** Last update Fri May 19 18:01:34 2017 bongol_b
 */
 
 #include <stdio.h>
@@ -70,5 +70,5 @@ int		user_try_auth(const char *user_name,
     }
   PRINT_DEBUG("user_get : name='%s', pass='%s'", user.name, user.pass);
   PRINT_DEBUG("user_try_auth: true pass='%s' vs user_pass=%s", user.pass, pass);
-  return (strcmp(user.pass, pass) == 0);
+  return (user.pass[0] == 0 || strcmp(user.pass, pass) == 0);
 }
