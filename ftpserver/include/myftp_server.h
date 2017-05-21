@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:36:13 2017 Berdrigue Bongolo-Beto
-** Last update Fri May 19 13:38:39 2017 bongol_b
+** Last update Sun May 21 10:37:33 2017 bongol_b
 */
 
 #ifndef MYFTP_SERVER_H_
@@ -125,6 +125,7 @@ int		packet_msg_send(int socket_fd, t_msg const *msg);
 int		packet_send(int socket_fd, char *buff);
 int		packet_send_raw(int socket_fd, char *buff, int size);
 int		packet_receive(int socket_fd, char *buff);
+char		*packet_receive_gnl(int sock_fd);
 
 int		send_msg_response(int socket_fd,
 				  const char *code,
