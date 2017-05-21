@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May  8 16:35:16 2017 Berdrigue Bongolo-Beto
-** Last update Sun May 21 21:17:08 2017 Berdrigue Bongolo-Beto
+** Last update Sun May 21 23:36:22 2017 Berdrigue Bongolo-Beto
 */
 
 #include <netinet/in.h>
@@ -42,14 +42,13 @@ void		sigint_handler(int sig)
     {
       if (g_config.sock_fd > -1)
 	close(g_config.sock_fd);
-      exit(0);
     }
   else
     {
       if (g_config.client_sock_fd > -1)
 	close(g_config.client_sock_fd);
     }
-  //exit(0);
+  exit(0);
   (void)sig;
 }
 

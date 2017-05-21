@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 08:25:08 2017 bongol_b
-** Last update Sun May 21 21:30:28 2017 Berdrigue Bongolo-Beto
+** Last update Sun May 21 23:36:48 2017 Berdrigue Bongolo-Beto
 */
 
 #include <stdlib.h>
@@ -25,7 +25,7 @@ static int		wait_client_sock_connection(int *client_sock_fd,
 {
   *client_sock_fd = accept(g_config.sock_fd,
 			   (struct sockaddr *)addr,
-			  sock_len);
+			   sock_len);
   if (*client_sock_fd == -1)
     return (dprintf(2, ERR_SOCKET_ACCEPT, strerror(errno)), 0);
   g_config.client_sock_fd = *client_sock_fd;
