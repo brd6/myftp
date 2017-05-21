@@ -5,13 +5,13 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 11:46:46 2017 bongol_b
-** Last update Sun May 14 02:42:08 2017 bongol_b
+** Last update Sun May 21 21:25:06 2017 Berdrigue Bongolo-Beto
 */
 
 #include <unistd.h>
 #include <string.h>
+#include <stdio.h>
 #include "myftp_server.h"
-#include "debug.h"
 
 static int	set_current_path()
 {
@@ -23,10 +23,7 @@ int		cmd_pwd_execute(int sock_fd, const char **args)
   char		buff[PATH_MAX];
 
   if (!set_current_path())
-    {
-      PRINT_ERROR("Unable to get current path");
-      return (0);
-    }
+    return (0);
   sprintf(buff, "'%s'", g_config.current_path);
   send_msg_response(sock_fd, "257", buff);
   (void)args;

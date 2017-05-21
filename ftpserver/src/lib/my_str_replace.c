@@ -5,12 +5,11 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu Jan 14 12:46:38 2016 Berdrigue BONGOLO BETO
-** Last update Sun May 14 14:55:12 2017 bongol_b
+** Last update Sun May 21 21:27:15 2017 Berdrigue Bongolo-Beto
 */
 
 #include <string.h>
 #include <stdlib.h>
-#include "debug.h"
 
 static int	my_strlen(const char *str)
 {

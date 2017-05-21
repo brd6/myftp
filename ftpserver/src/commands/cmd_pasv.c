@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:12:03 2017 bongol_b
-** Last update Mon May 15 11:18:12 2017 bongol_b
+** Last update Sun May 21 21:25:21 2017 Berdrigue Bongolo-Beto
 */
 
 #include <netinet/in.h>
@@ -15,7 +15,6 @@
 #include <unistd.h>
 #include <string.h>
 #include "myftp_server.h"
-#include "debug.h"
 
 static int	generate_port(int min, int max)
 {

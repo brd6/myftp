@@ -5,13 +5,12 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 15:02:57 2017 bongol_b
-** Last update Mon May 15 23:28:58 2017 bongol_b
+** Last update Sun May 21 21:22:41 2017 Berdrigue Bongolo-Beto
 */
 
 #include <stdlib.h>
 #include <string.h>
 #include "myftp_server.h"
-#include "debug.h"
 
 static t_msg	g_msg_types[] = {
   {"120", "Service ready in %d minutes."},
@@ -63,10 +62,7 @@ int		send_msg_response(int socket_fd,
   t_msg		msg;
 
   if ((msg_idx = get_msg_index(code)) == UNKNOW_MSG_TYPE_IDX)
-    {
-      PRINT_ERROR("Responde code not found : %s", code);
-      return (0);
-    }
+    return (0);
   if (text != NULL)
     msg_create(code, text, &msg);
   else

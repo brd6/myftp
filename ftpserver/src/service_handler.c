@@ -5,13 +5,13 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 23:42:04 2017 bongol_b
-** Last update Fri May 19 13:38:45 2017 bongol_b
+** Last update Sun May 21 21:21:34 2017 Berdrigue Bongolo-Beto
 */
 
 #include <stdio.h>
+#include <string.h>
 #include "myftp_server.h"
 #include "errors.h"
-#include "debug.h"
 
 static void	set_current_auth_state(const char *command, t_auth_state *state)
 {
@@ -19,7 +19,6 @@ static void	set_current_auth_state(const char *command, t_auth_state *state)
     *state = NAME_STEP;
   else if (strcasecmp(command, "PASS") == 0 && *state == NAME_STEP)
     *state = SUCCESS;
-  PRINT_DEBUG("auth_process: state=%d", *state);
 }
 
 static int	service_loop_dispatch(int sock_fd, t_auth_state *auth_state)
@@ -27,10 +26,6 @@ static int	service_loop_dispatch(int sock_fd, t_auth_state *auth_state)
   t_cmd		cmd;
   char		**args;
 
-  PRINT_DEBUG("user connected : name='%s', home='%s' - auth=%d",
-	      g_config.current_user.name,
-	      g_config.current_user.home_dir,
-	      g_config.current_user.is_auth);
   if ((args = parse_packet_args(sock_fd)) == NULL)
     return (0);
   if (*auth_state != SUCCESS && !is_auth_cmd_allowed(args[0]))

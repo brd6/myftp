@@ -5,14 +5,13 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon May 15 16:17:38 2017 bongol_b
-** Last update Mon May 15 23:33:00 2017 bongol_b
+** Last update Sun May 21 21:27:02 2017 Berdrigue Bongolo-Beto
 */
 
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include "myftp_server.h"
-#include "debug.h"
 
 int		cmd_size_execute(int sock_fd, const char **args)
 {

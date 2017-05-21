@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun May 14 11:30:25 2017 bongol_b
-** Last update Sun May 14 11:44:51 2017 bongol_b
+** Last update Sun May 21 21:28:11 2017 Berdrigue Bongolo-Beto
 */
 
 #include <stdio.h>
@@ -16,7 +16,6 @@
 #include <sys/socket.h>
 #include "myftp_server.h"
 #include "errors.h"
-#include "debug.h"
 
 static void	init_sock_address(struct sockaddr_in *sock_address,
 				  const char *addr,

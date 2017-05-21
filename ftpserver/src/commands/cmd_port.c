@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:14:41 2017 bongol_b
-** Last update Mon May 15 10:48:45 2017 bongol_b
+** Last update Sun May 21 21:25:38 2017 Berdrigue Bongolo-Beto
 */
 
 #include <ctype.h>
@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include <string.h>
 #include "myftp_server.h"
-#include "debug.h"
 
 static int	is_valid_ipaddr(const char *addr)
 {
@@ -86,9 +85,6 @@ int		cmd_port_execute(int sock_fd, const char **args)
   if (parse_address_and_port(args, g_config.client.ipaddr,
 			     &g_config.client.port_data) == 0)
     return (send_msg_response(sock_fd, "501", NULL), 0);
-  PRINT_DEBUG("cmd_port_execute: addr=%s,port=%u",
-	      g_config.client.ipaddr,
-	      g_config.client.port_data);
   g_config.data_mode = ACTIVE;
   send_msg_response(sock_fd, "200", NULL);
   return (1);

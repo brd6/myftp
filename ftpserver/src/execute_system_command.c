@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun May 14 12:21:35 2017 bongol_b
-** Last update Sun May 14 20:28:07 2017 bongol_b
+** Last update Sun May 21 21:28:20 2017 Berdrigue Bongolo-Beto
 */
 
 #include <stdio.h>
@@ -16,7 +16,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "myftp_server.h"
-#include "debug.h"
 
 static int	try_execute_cmd(const char *cmd, char *tmp_result_path)
 {

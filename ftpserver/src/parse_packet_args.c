@@ -5,14 +5,13 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun May 14 22:34:57 2017 bongol_b
-** Last update Sun May 21 10:52:52 2017 bongol_b
+** Last update Sun May 21 21:29:41 2017 Berdrigue Bongolo-Beto
 */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include "myftp_server.h"
 #include "errors.h"
-#include "debug.h"
 
 static void	init_vars(int *i, int *j, int *k)
 {

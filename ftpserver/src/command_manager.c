@@ -5,13 +5,12 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu May 11 18:38:09 2017 bongol_b
-** Last update Mon May 15 23:30:09 2017 bongol_b
+** Last update Sun May 21 21:23:02 2017 Berdrigue Bongolo-Beto
 */
 
 #include <string.h>
 #include <stdio.h>
 #include "myftp_server.h"
-#include "debug.h"
 
 static t_cmd	g_cmds[] = {
   {"USER", cmd_user_execute},
@@ -68,11 +67,9 @@ int		get_cmd(const char *buff, t_cmd *cmd)
 {
   int		i;
 
-  PRINT_DEBUG("get_cmd : buff='%s'", buff);
   if ((i = get_command_index(buff)) == UNKNOW_CMD_IDX)
     return (0);
   *cmd = g_cmds[i];
-  PRINT_DEBUG("get_cmd: %s", cmd->command);
   return (1);
 }
 
@@ -82,6 +79,5 @@ int		is_auth_cmd_allowed(const char *cmd)
   check = (strcasecmp(cmd, "USER") == 0 ||
 	   strcasecmp(cmd, "PASS") == 0 ||
 	   strcasecmp(cmd, "QUIT") == 0);
-  PRINT_DEBUG("is_auth_cmd_allowed: check=%d for '%s'", check, cmd);
   return (check);
 }

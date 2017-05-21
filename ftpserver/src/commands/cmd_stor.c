@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:23:00 2017 bongol_b
-** Last update Mon May 15 23:13:27 2017 bongol_b
+** Last update Sun May 21 21:26:36 2017 Berdrigue Bongolo-Beto
 */
 
 #include <stdlib.h>
@@ -15,7 +15,6 @@
 #include <unistd.h>
 #include <string.h>
 #include "myftp_server.h"
-#include "debug.h"
 
 static int	get_file_ascii(int sock_fd, const char *file_name)
 {
@@ -24,7 +23,7 @@ static int	get_file_ascii(int sock_fd, const char *file_name)
   char		buff[PACKET_BUFF_SIZE + 1];
   char		*clean_content;
 
-  if ((fd = creat(file_name, 0666)) == -1) // O_WRONLY | O_EXCL | O_CREAT
+  if ((fd = creat(file_name, 0666)) == -1)
     return (close_data_mode(), 0);
   while ((res = read(sock_fd, buff, PACKET_BUFF_SIZE)) > 0)
     {
@@ -48,7 +47,7 @@ static int	get_file_binary(int sock_fd, const char *file_name)
   int		res;
   char		buff[PACKET_BUFF_SIZE + 1];
 
-  if ((fd = creat(file_name, 0666)) == -1) // O_WRONLY | O_EXCL | O_CREAT
+  if ((fd = creat(file_name, 0666)) == -1)
     return (close_data_mode(), 0);
   while ((res = read(sock_fd, buff, PACKET_BUFF_SIZE)) > 0)
     {

@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Mon May  8 16:38:17 2017 Berdrigue Bongolo-Beto
-## Last update Fri May 19 17:36:29 2017 bongol_b
+## Last update Sun May 21 21:19:42 2017 Berdrigue Bongolo-Beto
 ##
 
 CC		=	gcc
@@ -47,7 +47,6 @@ SRCS_MY_LIB	=	$(DIR_SERVER)/src/lib/my_wordtab_to_str.c \
 SRCS_SERVER	= 	$(DIR_SERVER)/src/main.c \
 			$(DIR_SERVER)/src/myftp_server.c \
 			$(DIR_SERVER)/src/server_create.c \
-			$(DIR_SERVER)/src/socket_debug_utils.c \
 			$(DIR_SERVER)/src/user_manager.c \
 			$(DIR_SERVER)/src/service_handler.c \
 			$(DIR_SERVER)/src/packet_manager.c \

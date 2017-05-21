@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 22:21:38 2017 bongol_b
-** Last update Mon May 15 23:06:22 2017 bongol_b
+** Last update Sun May 21 21:26:10 2017 Berdrigue Bongolo-Beto
 */
 
 #include <stdlib.h>
@@ -15,7 +15,6 @@
 #include <unistd.h>
 #include <string.h>
 #include "myftp_server.h"
-#include "debug.h"
 
 static int	send_file_ascii(int sock_fd, const char *file_name)
 {
@@ -32,7 +31,6 @@ static int	send_file_ascii(int sock_fd, const char *file_name)
       clean_content = my_str_replace("\n", "\r\n", buff, -1);
       if (packet_send_raw(sock_fd, clean_content, res) == 0)
 	{
-	  PRINT_ERROR("can't send raw data. Connection out");
 	  free(clean_content);
 	  close(fd);
 	  return (close_data_mode(), 0);
@@ -55,7 +53,6 @@ static int	send_file_binary(int sock_fd, const char *file_name)
     {
       if (packet_send_raw(sock_fd, buff, res) == 0)
 	{
-	  PRINT_ERROR("can't send raw data. Connection out");
 	  close(fd);
 	  return (close_data_mode(), 0);
 	}

@@ -5,13 +5,12 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed May 10 22:05:55 2017 bongol_b
-** Last update Fri May 19 18:01:34 2017 bongol_b
+** Last update Sun May 21 21:20:24 2017 Berdrigue Bongolo-Beto
 */
 
 #include <stdio.h>
 #include <string.h>
 #include "myftp_server.h"
-#include "debug.h"
 
 static t_user	g_users[] = {
   {"anonymous", "", "/", 0},
@@ -27,7 +26,6 @@ static int	get_user_index(const char *name)
   i = 0;
   while (g_users[i].name[0])
     {
-      PRINT_DEBUG("user_index : name='%s', pass='%s'", g_users[i].name, g_users[i].pass);
       if (strcasecmp(g_users[i].name, name) == 0)
 	return (i);
       i++;
@@ -42,7 +40,6 @@ int		user_get(const char *name, t_user *user)
   if ((user_idx = get_user_index(name)) == UNKNOW_USER_IDX)
     return (0);
   *user = g_users[user_idx];
-  PRINT_DEBUG("user_get : name='%s', pass='%s'", user->name, user->pass);
   return (1);
 }
 
@@ -62,13 +59,7 @@ int		user_try_auth(const char *user_name,
 {
   t_user	user;
 
-  PRINT_DEBUG("user_try_auth: name='%s' pass='%s'", user_name, pass);
   if (user_get(user_name, &user) == 0)
-    {
-      PRINT_DEBUG("user_try_auth: name='%s' pass='%s' > fail", user_name, pass);
-      return (0);
-    }
-  PRINT_DEBUG("user_get : name='%s', pass='%s'", user.name, user.pass);
-  PRINT_DEBUG("user_try_auth: true pass='%s' vs user_pass=%s", user.pass, pass);
+    return (0);
   return (user.pass[0] == 0 || strcmp(user.pass, pass) == 0);
 }

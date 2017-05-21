@@ -5,13 +5,13 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri May 12 10:15:03 2017 bongol_b
-** Last update Fri May 12 10:21:30 2017 bongol_b
+** Last update Sun May 21 21:28:04 2017 Berdrigue Bongolo-Beto
 */
 
+#include <string.h>
 #include <stdio.h>
 #include "myftp_server.h"
 #include "errors.h"
-#include "debug.h"
 
 static int	auth_process(int sock_fd, t_auth_state *state)
 {
@@ -19,7 +19,6 @@ static int	auth_process(int sock_fd, t_auth_state *state)
   t_cmd		cmd;
   char		**args;
 
-  PRINT_DEBUG("auth_process: sock_fd=%d", sock_fd);
   if ((packet_receive(sock_fd, buff) == 0) ||
       ((args = my_str_split(buff, WORD_SEPS)) == NULL ||
        my_wordtab_count((const char **)args) < 1))
@@ -35,7 +34,6 @@ static int	auth_process(int sock_fd, t_auth_state *state)
 	*state = NAME_STEP;
       else if (strcasecmp(cmd.command, "PASS") == 0 && *state == NAME_STEP)
 	*state = SUCCESS;
-      PRINT_DEBUG("auth_process: state=%d", *state);
       return (my_free_wordtab(args), 1);
     }
   return (my_free_wordtab(args), 0);
@@ -46,9 +44,7 @@ int		service_authentification(int sock_fd)
   t_auth_state	state;
 
   state = NONE;
-  PRINT_DEBUG("service auth");
   while (!g_config.should_stop && state != SUCCESS)
     auth_process(sock_fd, &state);
-  PRINT_DEBUG("service_auth : end");
   return (state == SUCCESS);
 }
